@@ -1,0 +1,30 @@
+.form-layout{
+    display: block;
+    width: 100%;
+    height: 40px;
+    background-color: paleturquoise;
+    margin-top: 3%;
+    overflow: hidden;
+}
+
+.form-title-layout{
+    display: block;
+    margin-left: 7%;
+    width: 45%;
+    height: auto;
+    text-align: center;
+    background-color: coral;
+    border: 5px solid darkblue;
+    border-radius: 20px;
+    float: left;
+    overflow: hidden;
+}
+
+.form-title-layout:hover{
+    background-color: teal;
+}
+
+.button-layout{
+    float: left;
+    overflow: hidden;
+}

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 
 function Form(props) {
-    const reportFormId = `/report?formid=${props.formId}`;
+    const reportFormId = `/report/${props.formId}`;
 
     return (
         <div className='form-layout'>

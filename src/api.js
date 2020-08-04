@@ -21,3 +21,15 @@ export const getFormById = (formId) => {
     .then(response => response.json())
     .then(response => response.content)
 }
+
+export const getSubmissionById = (formId) => {
+    return fetch(`https://api.jotform.com/form/${formId}/submissions?apikey=${apikey}`)
+    .then(response => response.json())
+    .then(r => r.content)
+}
+
+export const getSubmissionQuestionsById = (formId) => {
+    return fetch(`https://api.jotform.com/form/${formId}/questions?apikey=${apikey}`)
+    .then(response => response.json())
+    .then(r => r.content)
+}

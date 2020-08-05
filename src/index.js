@@ -4,7 +4,7 @@ import './index.css';
 import { AuthProvider } from './contexts/AuthContext'
 import { FormsProvider } from './contexts/FormsContext'
 import FormList from './components/FormList'
-import FormReport from './components/FormReport';
+import FormReportPage from './components/FormReportPage';
 import {
   BrowserRouter as Router,
   Route,
@@ -23,7 +23,7 @@ ReactDOM.render(
           <Route path="/formlist">
             <FormList />
           </Route>
-          <Route path="/report/:formId" children={<FormReport />}>
+          <Route path="/report/:formId" children={<FormReportPage />}>
           </Route>
         </Switch>
       </Router>

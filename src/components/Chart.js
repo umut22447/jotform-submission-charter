@@ -1,27 +1,19 @@
-import React, {useRef, useEffect} from 'react'
+import React, { useRef, useEffect } from 'react'
+import { fillDataArray, drawGoogleChart } from '../Util'
 
 
 export default function Chart(props) {
     const divRef = useRef();
+    const { answers } = props;
+    const { field } = props;
+
 
     useEffect(() => {
-        var drawChart = () => {
-            var data = new global.google.visualization.DataTable();
-            data.addColumn('string', 'Answer');
-            data.addColumn('number', 'Answer Count');
-            data.addRows(props.data);
-            var options = {
-                'title': 'Answers for ' + props.answerText,
-                'width': 400,
-                'height': 300
-            };
-            var chart = new global.google.visualization.PieChart(divRef.current);
-            chart.draw(data, options);
-        }
-        global.google.charts.load('current', { 'packages': ['corechart'] });
-        global.google.charts.setOnLoadCallback(drawChart);
-    }, [props.answerText,props.data]);
+        var { dataArr, answerText } = fillDataArray(answers, field);
+        drawGoogleChart(dataArr, answerText, divRef);
+
+    }, [answers, field, divRef]);
 
 
-    return <div ref={divRef}/>;
+    return <div ref={divRef} />;
 }

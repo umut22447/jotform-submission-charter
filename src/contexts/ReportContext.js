@@ -4,12 +4,25 @@ import { getSubmissionById, getFormById, getSubmissionQuestionsById } from '../a
 const ReportContext = createContext({});
 
 export const ReportProvider = ({ children, formId }) => {
-    const [form, setForm] = useState({});
-    const [report, setReport] = useState([]);   //Represents chart enabled fields
+    const [form, setForm] = useState({});    
     const [answers, setAnswers] = useState([]);
+    const [report, setReport] = useState([]);   //Represents chart enabled fields
+    const [deletedReport, setDeletedReport] = useState([]);
+    
     const deleteChartByField = (field) => {
         const newReport = report.filter(r => r !== field);
+        let newDeletedReport = deletedReport;
+        newDeletedReport.push(field);
         setReport(newReport);
+        setDeletedReport(newDeletedReport);
+    }
+
+    const addChartByField = (field) => {
+        const newDeletedReport = deletedReport.filter(d => d !== field);
+        let newReport = report;
+        newReport.push(field);
+        setReport(newReport);
+        setDeletedReport(newDeletedReport);
     }
     
     useEffect(() => {
@@ -40,7 +53,7 @@ export const ReportProvider = ({ children, formId }) => {
     }, [formId])
 
     return (
-        <ReportContext.Provider value={{ report, answers, form, deleteChartByField}}>
+        <ReportContext.Provider value={{ report, answers, form, addChartByField, deleteChartByField, deletedReport}}>
             {children}
         </ReportContext.Provider>
     )

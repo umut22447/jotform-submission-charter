@@ -8,17 +8,31 @@ import FormReportPage from './components/FormReportPage';
 import {
   BrowserRouter as Router,
   Route,
-  Link,
   Switch
 } from 'react-router-dom'
-
+import { Navbar, Nav } from 'react-bootstrap';
+import logo from './images/logo.png'
 
 
 ReactDOM.render(
   <AuthProvider>
     <FormsProvider>
       <Router>
-        <Link to="/formlist"><button renderAs="button">Form List</button></Link>
+        <Navbar bg="dark" variant="dark">
+          <Navbar.Brand>
+            <img
+              src={logo}
+              width="25"
+              height="25"
+              className="d-inline-block align-top"
+              alt="Jotform logo"
+            />{' '}
+            JotForm Submission Charter
+          </Navbar.Brand>
+          <Nav className='mr-auto'>
+            <Nav.Link href='/formlist'>Form List</Nav.Link>
+          </Nav>
+        </Navbar>
         <Switch>
           <Route path="/formlist">
             <FormList />

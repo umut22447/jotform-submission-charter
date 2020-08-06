@@ -6,16 +6,17 @@ export default function FormList() {
     const { forms } = useForms()
 
     return (
-        <div>
+        <ul className='list-group'>
             {
                 forms.map(form => {
                     return (
                         <Form
                             title={form.title}
-                            formId={form.id}/>
+                            formId={form.id}
+                            answerCount={form.count}/>
                     )
                 })
             }
-        </div>
+        </ul>
     )
 }

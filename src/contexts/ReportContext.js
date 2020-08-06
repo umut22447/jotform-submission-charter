@@ -7,6 +7,10 @@ export const ReportProvider = ({ children, formId }) => {
     const [form, setForm] = useState({});
     const [report, setReport] = useState([]);   //Represents chart enabled fields
     const [answers, setAnswers] = useState([]);
+    const deleteChartByField = (field) => {
+        const newReport = report.filter(r => r !== field);
+        setReport(newReport);
+    }
     
     useEffect(() => {
         getSubmissionById(formId)
@@ -36,7 +40,7 @@ export const ReportProvider = ({ children, formId }) => {
     }, [formId])
 
     return (
-        <ReportContext.Provider value={{ report, answers, form }}>
+        <ReportContext.Provider value={{ report, answers, form, deleteChartByField}}>
             {children}
         </ReportContext.Provider>
     )

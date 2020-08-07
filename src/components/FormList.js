@@ -3,13 +3,13 @@ import { useForms } from '../contexts/FormsContext'
 import Form from './Form'
 
 export default function FormList() {
-    const { forms } = useForms()
+    const { filteredForms } = useForms();
 
     return (
         <div className="d-flex">
             <ul className="list-group-item mx-auto justify-content-center bg-white border-0 w-50">
                 {
-                    forms.map(form => {
+                    filteredForms.map(form => {
                         return (
                             <Form
                                 title={form.title}

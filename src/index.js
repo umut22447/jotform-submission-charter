@@ -5,6 +5,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import { FormsProvider } from './contexts/FormsContext'
 import FormList from './components/FormList'
 import FormReportPage from './components/FormReportPage';
+import SearchBox from './components/SearchBox'
 import {
   BrowserRouter as Router,
   Route,
@@ -18,7 +19,7 @@ ReactDOM.render(
   <AuthProvider>
     <FormsProvider>
       <Router>
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" sticky='top'>
           <Navbar.Brand>
             <img
               src={logo}
@@ -35,7 +36,8 @@ ReactDOM.render(
         </Navbar>
         <Switch>
           <Route path="/formlist">
-            <h1 className='d-flex justify-content-center'>Select a Form and See the Charter</h1>
+            <h1 className='d-flex justify-content-center position-sticky'>Select a Form and See the Charter</h1>
+            <SearchBox />
             <FormList />
           </Route>
           <Route path="/report/:formId" children={<FormReportPage />}>

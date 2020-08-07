@@ -7,14 +7,18 @@ const FormsContext = createContext({});
 
 export const FormsProvider = ({ children }) => {
     const [forms, setForms] = useState([]);
+    const [filteredForms, setFilteredForms] = useState([]);
 
     useEffect(() => {
         getForms()
-        .then(setForms);
+        .then(forms => {
+            setForms(forms);
+            setFilteredForms(forms);
+        });
     }, []);
 
     return (
-        <FormsContext.Provider value={{ forms }}>
+        <FormsContext.Provider value={{ forms, setForms, filteredForms, setFilteredForms }}>
             {children}
         </FormsContext.Provider>
     );

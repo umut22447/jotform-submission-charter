@@ -36,8 +36,10 @@ ReactDOM.render(
         </Navbar>
         <Switch>
           <Route path="/formlist">
-            <h1 className='d-flex justify-content-center position-sticky'>Select a Form and See the Charter</h1>
-            <SearchBox />
+            <div>
+              <h2 className='d-flex justify-content-center'>Select a Form and See the Charter</h2>
+              <SearchBox />
+            </div>
             <FormList />
           </Route>
           <Route path="/report/:formId" children={<FormReportPage />}>

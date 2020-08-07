@@ -7,7 +7,7 @@ export default function SearchBox(){
     const inputRef = useRef();
     const handleChange = () => {
         let newValue = inputRef.current.value;
-        const newForms = forms.filter(form => form.title.includes(newValue));
+        const newForms = forms.filter(form => form.title.toLowerCase().includes(newValue.toLowerCase()));
         setFilteredForms(newForms);
     }
 

@@ -33,3 +33,7 @@ textarea {overflow:auto;}
 .form-info-layout:hover{
     background-color: teal;
 }
+
+.list-group-item:hover{
+    border: 2px darkblue solid;
+}

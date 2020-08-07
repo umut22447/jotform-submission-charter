@@ -19,9 +19,9 @@ export default function Chart(props) {
 
 
     return (
-        <div>
+        <div className='float-left border-primary'>
             <div ref={divRef} />
-            <button className='chart-delete-button' onClick={handleClick}>Delete</button>
+            <button className='btn btn-danger' onClick={handleClick}>Delete</button>
         </div>
     );
 }

@@ -51,7 +51,6 @@ export const drawGoogleChart = (dataArray, title, divRef) => {
         data.addColumn('number', 'Answer Count');
         data.addRows(dataArray);
         var options = {
-            'title': 'Answers for ' + title,
             'width': 400,
             'height': 300
         };

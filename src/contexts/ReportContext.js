@@ -4,11 +4,12 @@ import { getSubmissionById, getFormById, getSubmissionQuestionsById } from '../a
 const ReportContext = createContext({});
 
 export const ReportProvider = ({ children, formId }) => {
-    const [form, setForm] = useState({});    
+    const [form, setForm] = useState({});
     const [answers, setAnswers] = useState([]);
     const [report, setReport] = useState([]);   //Represents chart enabled fields
     const [deletedReport, setDeletedReport] = useState([]);
-    
+    const [questions, setQuestions] = useState([]);
+
     const deleteChartByField = (field) => {
         const newReport = report.filter(r => r !== field);
         let newDeletedReport = deletedReport;
@@ -24,7 +25,7 @@ export const ReportProvider = ({ children, formId }) => {
         setReport(newReport);
         setDeletedReport(newDeletedReport);
     }
-    
+
     useEffect(() => {
         getSubmissionById(formId)
             .then(submission => {
@@ -48,13 +49,25 @@ export const ReportProvider = ({ children, formId }) => {
                         questions[q].type === 'control_number' ||
                         (questions[q].type === 'control_widget' && questions[q].cfname === "Beğen ve Beğenme Butonları")
                 });
-                setReport(chartArr);
+
+                const newReport = chartArr.map(field => {
+                    let title = questions[field].text;
+                    let reportObject = { "field": field, "title": title };
+                    return reportObject;
+                })
+
+                setReport(newReport);
+
+                
+                const questionsArr = chartArr.map(c => questions[c]);
+                setQuestions(questionsArr);
             })
     }, [formId])
 
     return (
-        <ReportContext.Provider value={{ report, answers, form, addChartByField, deleteChartByField, deletedReport}}>
+        <ReportContext.Provider value={{ report, answers, form, addChartByField, deleteChartByField, deletedReport }}>
             {children}
+            {console.log(questions)}
         </ReportContext.Provider>
     )
 }

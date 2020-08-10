@@ -19,7 +19,7 @@ export default function FormReport() {
 
             <br />
             {report.map(r => {
-                return (<Chart field={r} />)
+                return (<Chart report={r} />)
             })}
 
 

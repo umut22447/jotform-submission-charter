@@ -9,21 +9,48 @@ export const ReportProvider = ({ children, formId }) => {
     const [report, setReport] = useState([]);   //Represents chart enabled fields
     const [deletedReport, setDeletedReport] = useState([]);
     const [questions, setQuestions] = useState([]);
+    const [submissions, setSubmissions] = useState([]);
 
     const deleteChartByField = (field) => {
-        const newReport = report.filter(r => r !== field);
+        const newReport = report.filter(r => r.field !== field);
         let newDeletedReport = deletedReport;
         newDeletedReport.push(field);
         setReport(newReport);
         setDeletedReport(newDeletedReport);
     }
 
-    const addChartByField = (field) => {
-        const newDeletedReport = deletedReport.filter(d => d !== field);
+    /*const addChartByField = (field) => {
+        const newDeletedReport = deletedReport.filter(d => d.field !== field);
         let newReport = report;
         newReport.push(field);
         setReport(newReport);
         setDeletedReport(newDeletedReport);
+    }*/
+
+    const changeChartTypeByField = (field, chartType) => {
+        const newReport = report.map(r => {
+            if (field === r.field) {
+                return { ...r, chartType }
+            }
+
+            return r
+        });
+
+        setReport(newReport);
+        console.log(newReport);
+    }
+
+    const changeDateByField = (field, date) => {
+        const newReport = report.map(r => {
+            if (field === r.field) {
+                return { ...r, date }
+            }
+
+            return r
+        });
+
+        setReport(newReport);
+        console.log(newReport);
     }
 
     useEffect(() => {
@@ -32,6 +59,9 @@ export const ReportProvider = ({ children, formId }) => {
                 const newAnswers = submission.map(s => s.answers);
                 setAnswers(newAnswers);
             });
+
+        getSubmissionById(formId)
+            .then(setSubmissions);
 
         getFormById(formId)
             .then(setForm);
@@ -52,22 +82,21 @@ export const ReportProvider = ({ children, formId }) => {
 
                 const newReport = chartArr.map(field => {
                     let title = questions[field].text;
-                    let reportObject = { "field": field, "title": title };
+                    let reportObject = { "field": field, "title": title, "chartType": "Pie", "date": "All"};
                     return reportObject;
                 })
 
                 setReport(newReport);
 
-                
+
                 const questionsArr = chartArr.map(c => questions[c]);
                 setQuestions(questionsArr);
             })
     }, [formId])
 
     return (
-        <ReportContext.Provider value={{ report, answers, form, addChartByField, deleteChartByField, deletedReport }}>
-            {children}
-            {console.log(questions)}
+        <ReportContext.Provider value={{ report, answers, form, deleteChartByField, deletedReport, changeChartTypeByField, changeDateByField}}>
+            {children}{console.log(submissions)}
         </ReportContext.Provider>
     )
 }

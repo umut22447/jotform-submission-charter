@@ -1,10 +1,9 @@
 export const fillDataArray = (answers, field) => {
     var dataArr = [];
-    var answerText = "";
     answers.forEach(a => {
         console.log(a[field].text + " sorusuna gelen cevap : " + a[field].answer);
         if (typeof (a[field].answer) === "object") {    //If the field is multiple choice box.
-            a[field].answer.map(a => {
+            a[field].answer.forEach(a => {
                 let index = isAnswerExist(dataArr, a);
                 if (index !== -1) {
                     dataArr[index][1]++;
@@ -28,11 +27,9 @@ export const fillDataArray = (answers, field) => {
 
             }
         }
-
-        answerText = a[field].text;
     })
 
-    return { dataArr, answerText };       //It returns the filled array and its text as an object.
+    return dataArr;       //It returns the filled array.
 }
 
 function isAnswerExist(arr, search) {        //It returns index of element if search exits. Else return -1 element

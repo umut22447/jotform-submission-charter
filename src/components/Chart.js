@@ -19,32 +19,13 @@ export default function Chart(props) {
     }, [answers, field, divRef, title, chartType, date]);
 
     const handleChartTypeChange = () => {
-        let selectedValue = chartTypeSelectRef.current.value;
+        const selectedValue = chartTypeSelectRef.current.value;
         changeChartTypeByField(field, selectedValue);
     }
 
     const handleDateChange = () => {
-        let dateValue = dateSelectRef.current.value;
-        let currentDate = new Date();
-        let date = "";
-        switch (dateValue) {
-            case 'All':
-                date = "All";
-                break;
-            case 'last7days':
-                currentDate.setDate(currentDate.getDate() - 7);
-                date = currentDate.toString();
-                break;
-            case 'last3month':
-                currentDate.setDate(currentDate.getDate() - 90);
-                date = currentDate.toString();
-                break;
-            default:
-                date = "All";
-                break;
-        }
-
-        changeDateByField(field, date);
+        const dateValue = dateSelectRef.current.value;
+        changeDateByField(field, dateValue);
     }
 
     return (

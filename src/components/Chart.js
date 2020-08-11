@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { fillDataArray, drawGoogleChart } from '../Util'
+import { fillDataArray, drawPieChart, drawLineChart, editDataArrayByDate } from '../Util'
 import { useReport } from '../contexts/ReportContext'
 
 
@@ -7,16 +7,22 @@ export default function Chart(props) {
     const divRef = useRef();
     const chartTypeSelectRef = useRef();
     const dateSelectRef = useRef();
-    const { answers, deleteChartByField, changeChartTypeByField, changeDateByField } = useReport();
+    const { answers, deleteChartByField, changeChartTypeByField, changeDateByField, submissions } = useReport();
     const { field, title, chartType, date } = props.report;
     const handleClick = () => {
         deleteChartByField(field);
     }
 
     useEffect(() => {
-        var dataArr = fillDataArray(answers, field);
-        drawGoogleChart(dataArr, title, divRef);
-    }, [answers, field, divRef, title, chartType, date]);
+        const dataArr = fillDataArray(answers, field);
+        const updatedDataArr = editDataArrayByDate(dataArr, field, date, submissions);
+        if(chartType === "Pie"){
+            drawPieChart(updatedDataArr, divRef);
+        }
+        else{
+            drawLineChart(updatedDataArr, divRef);
+        }
+    }, [answers, field, divRef, title, chartType, date, submissions]);
 
     const handleChartTypeChange = () => {
         const selectedValue = chartTypeSelectRef.current.value;

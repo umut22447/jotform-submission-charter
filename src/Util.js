@@ -32,7 +32,8 @@ export const fillDataArray = (answers, field) => {
     return dataArr;       //It returns the filled array.
 }
 
-export const editDataArrayByDate = (dataArray, field, date, submissions) => {
+export const fillDataArrayByDate = (dataArray, field, date, submissions) => {
+    console.log(submissions);
     if (date === "All") {   //If date selected as All then it returns the full info dataArray that is already defined.
         return dataArray;
     }
@@ -45,6 +46,7 @@ export const editDataArrayByDate = (dataArray, field, date, submissions) => {
         return null;
     })
     const filteredAnswers = answers.filter(a => a !== null);
+    console.log(filteredAnswers);
     return fillDataArray(filteredAnswers, field);
 }
 

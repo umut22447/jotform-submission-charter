@@ -32,6 +32,9 @@ export default function Chart(props) {
     const handleDateChange = () => {
         const dateValue = dateSelectRef.current.value;
         changeDateByField(field, dateValue);
+        /*global.localforage.setItem(submissions.form_id, props.report)
+        .then(value => console.log(value))
+        .catch(err => console.log(err));*/
     }
 
     return (

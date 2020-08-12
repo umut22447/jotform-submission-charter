@@ -6,10 +6,6 @@ export default function FormReport() {
 
     const { form, report } = useReport();
 
-    /*const handleAddClick = (field) => {
-        addChartByField(field);
-    }*/
-
     return (
         <div>
             <h1>Answer Reports for <strong className='text-info'>{form.title}</strong></h1><br />

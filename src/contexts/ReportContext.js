@@ -37,7 +37,6 @@ export const ReportProvider = ({ children, formId }) => {
         });
 
         setReport(newReport);
-        console.log(newReport);
     }
 
     const changeDateByField = (field, date) => {

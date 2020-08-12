@@ -117,9 +117,19 @@ export const fillDataForLineChart = (submissions, field, date) => {
     var newRow = ["Date"];
     filteredSubmissions.forEach(s => {
         const ans = s.answers[field].answer;
-        const index = newRow.findIndex(r => r === ans);
-        if (index === -1) {
-            newRow.push(ans);
+        if (typeof (ans) === "object") {
+            ans.forEach(a => {
+                const index = newRow.findIndex(r => r === a);
+                if (index === -1) {
+                    newRow.push(a);
+                }
+            })
+        }
+        else {
+            const index = newRow.findIndex(r => r === ans);
+            if (index === -1) {
+                newRow.push(ans);
+            }
         }
     });
     dataArray.push(newRow);
@@ -137,13 +147,33 @@ export const prepareDataForLineChart = (answers, field, submissionDate, firstRow
     const ans = answers[field].answer;
     let newDataRow = [];
     newDataRow.push(submissionDate);
-    for (let i = 1; i < firstRow.length; i++) {
-        if (firstRow[i] === ans) {
-            newDataRow.push(1);
-        }
-        newDataRow.push(0);
+    if (typeof (ans) === "object") {                            //If the type of the answers is an array which means the answers is multi-choice
+        ans.forEach(a => {
+            for (let i = 1; i < firstRow.length; i++) {         //Since skipping the first element which is "Date", I did not use firstRow.forEach or etc.
+                if (firstRow[i] === a) {
+                    if(newDataRow.length < firstRow.length){
+                        newDataRow.push(1);
+                    }
+                    else{
+                        newDataRow[i]++;
+                    }
+                }
+                if(newDataRow.length < firstRow.length){
+                    newDataRow.push(0);
+                }
+            }
+        })
     }
-    newDataRow.pop();
+    else {
+        for (let i = 1; i < firstRow.length; i++) {         //Since skipping the first element which is "Date", I did not use firstRow.forEach or etc.
+            if (firstRow[i] === ans) {
+                newDataRow.push(1);
+            }
+            newDataRow.push(0);
+        }
+        newDataRow.pop();
+    }
+
 
     return newDataRow;
 }

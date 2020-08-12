@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { fillDataArray, drawPieChart, drawLineChart, fillDataArrayByDate } from '../Util'
+import { drawPieChart, drawLineChart, fillDataArrayByDate, fillDataForLineChart } from '../Util'
 import { useReport } from '../contexts/ReportContext'
 
 
@@ -14,13 +14,13 @@ export default function Chart(props) {
     }
 
     useEffect(() => {
-        const dataArr = fillDataArray(answers, field);
-        const updatedDataArr = fillDataArrayByDate(dataArr, field, date, submissions);
-        if(chartType === "Pie"){
-            drawPieChart(updatedDataArr, divRef);
+        if (chartType === "Pie") {
+            const dataArr = fillDataArrayByDate(field, date, submissions);
+            drawPieChart(dataArr, divRef);
         }
-        else{
-            drawLineChart(updatedDataArr, divRef);
+        else {
+            const dataArr = fillDataForLineChart(submissions, field, date);
+            drawLineChart(dataArr, divRef);
         }
     }, [answers, field, divRef, title, chartType, date, submissions]);
 

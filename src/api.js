@@ -23,7 +23,7 @@ export const getFormById = (formId) => {
 }
 
 export const getSubmissionById = (formId) => {
-    return fetch(`https://api.jotform.com/form/${formId}/submissions?apikey=${apikey}`)
+    return fetch(`https://api.jotform.com/form/${formId}/submissions?apikey=${apikey}&orderby=created_at,asc`)
     .then(response => response.json())
     .then(r => r.content)
 }

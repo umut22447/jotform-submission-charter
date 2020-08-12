@@ -32,15 +32,12 @@ export const fillDataArray = (answers, field) => {
     return dataArr;       //It returns the filled array.
 }
 
-export const fillDataArrayByDate = (dataArray, field, date, submissions) => {
+export const fillDataArrayByDate = (field, date, submissions) => {
     console.log(submissions);
-    if (date === "All") {   //If date selected as All then it returns the full info dataArray that is already defined.
-        return dataArray;
-    }
-    let dateCondition = getConditionDate(date);
+    const dateCondition = getConditionDate(date);
     const answers = submissions.map(s => {
         const submissionDate = new Date(s.created_at);
-        if (submissionDate > dateCondition) {
+        if (submissionDate >= dateCondition) {
             return s.answers;
         }
         return null;
@@ -53,6 +50,9 @@ export const fillDataArrayByDate = (dataArray, field, date, submissions) => {
 export const getConditionDate = (date) => {
     let dateCondition = new Date();
     switch (date) {
+        case "All":
+            dateCondition = new Date(1998, 2, 16);
+            return dateCondition;
         case "last7days":
             dateCondition.setDate(dateCondition.getDate() - 7);
             return dateCondition;
@@ -93,33 +93,12 @@ export const drawPieChart = (dataArray, divRef) => {
 export const drawLineChart = (dataArray, divRef) => {
 
     var drawBackgroundColor = () => {
-        var data = new global.google.visualization.DataTable();
-        data.addColumn('number', 'X');
-        data.addColumn('number', 'Dogs');
-
-        data.addRows([
-            [0, 0], [1, 10], [2, 23], [3, 17], [4, 18], [5, 9],
-            [6, 11], [7, 27], [8, 33], [9, 40], [10, 32], [11, 35],
-            [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
-            [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
-            [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
-            [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
-            [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
-            [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
-            [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
-            [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
-            [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
-            [66, 70], [67, 72], [68, 75], [69, 80]
-        ]);
+        var data = new global.google.visualization.arrayToDataTable(dataArray);
 
         var options = {
-            hAxis: {
-                title: 'Time'
-            },
-            vAxis: {
-                title: 'Popularity'
-            },
-            backgroundColor: '#f1f8e9'
+            title: 'Company Performance',
+            curveType: 'function',
+            legend: { position: 'bottom' }
         };
 
         var chart = new global.google.visualization.LineChart(divRef.current);
@@ -128,4 +107,55 @@ export const drawLineChart = (dataArray, divRef) => {
 
     global.google.charts.load('current', { packages: ['corechart', 'line'] });
     global.google.charts.setOnLoadCallback(drawBackgroundColor);
+}
+
+export const fillDataForLineChart = (submissions, field, date) => {
+    const dateCondition = getConditionDate(date);
+    const filteredSubmissions = submissions.filter(s => new Date(s.created_at) >= dateCondition);
+    var dataArray = [];
+    console.log(filteredSubmissions);
+    var newRow = ["Date"];
+    filteredSubmissions.forEach(s => {
+        const ans = s.answers[field].answer;
+        const index = newRow.findIndex(r => r === ans);
+        if (index === -1) {
+            newRow.push(ans);
+        }
+    });
+    dataArray.push(newRow);
+    filteredSubmissions.forEach(s => {
+        const submissionDate = new Date(s.created_at);
+        const newDataRow = prepareDataForLineChart(s.answers, field, submissionDate.toDateString(), dataArray[0]);
+        dataArray.push(newDataRow);
+    })
+    dataArray = modifyDataArray(dataArray);
+    console.log(dataArray);
+    return dataArray;
+}
+
+export const prepareDataForLineChart = (answers, field, submissionDate, firstRow) => {
+    const ans = answers[field].answer;
+    let newDataRow = [];
+    newDataRow.push(submissionDate);
+    for (let i = 1; i < firstRow.length; i++) {
+        if (firstRow[i] === ans) {
+            newDataRow.push(1);
+        }
+        newDataRow.push(0);
+    }
+    newDataRow.pop();
+
+    return newDataRow;
+}
+
+export const modifyDataArray = (dataArray) => {
+    for (let i = dataArray.length - 1; i > 0; i--) {
+        if (dataArray[i][0] === dataArray[i - 1][0]) {
+            for (let j = 1; j < dataArray[0].length; j++) {
+                dataArray[i - 1][j] += dataArray[i][j];
+            }
+            dataArray.splice(i, 1);
+        }
+    }
+    return dataArray;
 }

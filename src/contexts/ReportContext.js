@@ -95,7 +95,7 @@ export const ReportProvider = ({ children, formId }) => {
     }, [formId])
 
     return (
-        <ReportContext.Provider value={{ report, answers, form, deleteChartByField, deletedReport, changeChartTypeByField, changeDateByField, submissions}}>
+        <ReportContext.Provider value={{ report, answers, form, deleteChartByField, deletedReport, changeChartTypeByField, changeDateByField, submissions, questions}}>
             {children}
         </ReportContext.Provider>
     )

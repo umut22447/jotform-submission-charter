@@ -9,24 +9,13 @@ export const ReportProvider = ({ children, formId }) => {
     const [form, setForm] = useState({});
     const [answers, setAnswers] = useState([]);
     const [report, setReport] = useState([]);   //Represents chart enabled fields
-    const [deletedReport, setDeletedReport] = useState([]);
     const [submissions, setSubmissions] = useState([]);
 
     const deleteChartByField = (field) => {
         const newReport = report.filter(r => r.field !== field);
-        let newDeletedReport = deletedReport;
-        newDeletedReport.push(field);
         setReport(newReport);
-        setDeletedReport(newDeletedReport);
+        localforage.setItem(String(form.id),newReport);
     }
-
-    /*const addChartByField = (field) => {
-        const newDeletedReport = deletedReport.filter(d => d.field !== field);
-        let newReport = report;
-        newReport.push(field);
-        setReport(newReport);
-        setDeletedReport(newDeletedReport);
-    }*/
 
     const changeChartTypeByField = (field, chartType) => {
         const newReport = report.map(r => {
@@ -76,7 +65,7 @@ export const ReportProvider = ({ children, formId }) => {
     }, [formId])
 
     return (
-        <ReportContext.Provider value={{ report, answers, form, deleteChartByField, deletedReport, changeChartTypeByField, changeDateByField, submissions }}>
+        <ReportContext.Provider value={{ report, answers, form, deleteChartByField, changeChartTypeByField, changeDateByField, submissions }}>
             {children}
         </ReportContext.Provider>
     )

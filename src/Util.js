@@ -1,3 +1,6 @@
+import localforage from 'localforage'
+import { getSubmissionQuestionsById } from './api'
+
 export const fillDataArray = (answers, field) => {
     var dataArr = [];
     answers.forEach(a => {
@@ -151,14 +154,14 @@ export const prepareDataForLineChart = (answers, field, submissionDate, firstRow
         ans.forEach(a => {
             for (let i = 1; i < firstRow.length; i++) {         //Since skipping the first element which is "Date", I did not use firstRow.forEach or etc.
                 if (firstRow[i] === a) {
-                    if(newDataRow.length < firstRow.length){
+                    if (newDataRow.length < firstRow.length) {
                         newDataRow.push(1);
                     }
-                    else{
+                    else {
                         newDataRow[i]++;
                     }
                 }
-                if(newDataRow.length < firstRow.length){
+                if (newDataRow.length < firstRow.length) {
                     newDataRow.push(0);
                 }
             }
@@ -188,4 +191,40 @@ export const modifyDataArray = (dataArray) => {
         }
     }
     return dataArray;
+}
+
+export const getReportByFormId = async (formId) => {
+    let report = await getReportFromDb(formId);
+    if (report) {
+        return report;
+    }
+    return getDefaultReport(formId);
+}
+
+const getReportFromDb = async (formId) => {
+    const report = await localforage.getItem(String(formId))
+    return report;
+}
+
+const getDefaultReport = (formId) => {
+    return getSubmissionQuestionsById(formId)
+        .then(questions => {
+            const chartArr = Object.keys(questions).filter(q => {
+                return questions[q].type === 'control_dropdown' ||
+                    questions[q].type === 'control_checkbox' ||
+                    questions[q].type === 'control_rating' ||
+                    questions[q].type === 'control_scale' ||
+                    questions[q].type === 'control_radio' ||
+                    questions[q].type === 'control_textbox' ||
+                    questions[q].type === 'control_textarea' ||
+                    questions[q].type === 'control_number' ||
+                    (questions[q].type === 'control_widget' && questions[q].cfname === "Beğen ve Beğenme Butonları")
+            });
+            const newReport = chartArr.map(field => {
+                let title = questions[field].text;
+                let reportObject = { "field": field, "title": title, "chartType": "Pie", "date": "All" };
+                return reportObject;
+            })
+            return newReport;
+        })
 }

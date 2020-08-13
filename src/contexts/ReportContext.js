@@ -1,5 +1,7 @@
 import React, { useState, createContext, useContext, useEffect } from 'react'
-import { getSubmissionById, getFormById, getSubmissionQuestionsById } from '../api'
+import { getSubmissionById, getFormById } from '../api'
+import { getReportByFormId } from '../Util'
+import localforage from 'localforage'
 
 const ReportContext = createContext({});
 
@@ -8,7 +10,6 @@ export const ReportProvider = ({ children, formId }) => {
     const [answers, setAnswers] = useState([]);
     const [report, setReport] = useState([]);   //Represents chart enabled fields
     const [deletedReport, setDeletedReport] = useState([]);
-    const [questions, setQuestions] = useState([]);
     const [submissions, setSubmissions] = useState([]);
 
     const deleteChartByField = (field) => {
@@ -37,6 +38,9 @@ export const ReportProvider = ({ children, formId }) => {
         });
 
         setReport(newReport);
+        localforage.setItem(String(form.id), newReport)
+            .then(value => console.log(value))
+            .catch(err => console.log(err));
     }
 
     const changeDateByField = (field, date) => {
@@ -49,7 +53,9 @@ export const ReportProvider = ({ children, formId }) => {
         });
 
         setReport(newReport);
-        console.log(newReport);
+        localforage.setItem(String(form.id), newReport)
+            .then(value => { console.log(value) })
+            .catch(err => console.log(err));
     }
 
     useEffect(() => {
@@ -65,36 +71,12 @@ export const ReportProvider = ({ children, formId }) => {
         getFormById(formId)
             .then(setForm);
 
-        getSubmissionQuestionsById(formId)
-            .then(questions => {
-                const chartArr = Object.keys(questions).filter(q => {
-                    return questions[q].type === 'control_dropdown' ||
-                        questions[q].type === 'control_checkbox' ||
-                        questions[q].type === 'control_rating' ||
-                        questions[q].type === 'control_scale' ||
-                        questions[q].type === 'control_radio' ||
-                        questions[q].type === 'control_textbox' ||
-                        questions[q].type === 'control_textarea' ||
-                        questions[q].type === 'control_number' ||
-                        (questions[q].type === 'control_widget' && questions[q].cfname === "Beğen ve Beğenme Butonları")
-                });
+        getReportByFormId(formId).then(setReport);
 
-                const newReport = chartArr.map(field => {
-                    let title = questions[field].text;
-                    let reportObject = { "field": field, "title": title, "chartType": "Pie", "date": "All"};
-                    return reportObject;
-                })
-
-                setReport(newReport);
-
-
-                const questionsArr = chartArr.map(c => questions[c]);
-                setQuestions(questionsArr);
-            })
     }, [formId])
 
     return (
-        <ReportContext.Provider value={{ report, answers, form, deleteChartByField, deletedReport, changeChartTypeByField, changeDateByField, submissions, questions}}>
+        <ReportContext.Provider value={{ report, answers, form, deleteChartByField, deletedReport, changeChartTypeByField, changeDateByField, submissions }}>
             {children}
         </ReportContext.Provider>
     )

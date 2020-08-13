@@ -32,19 +32,16 @@ export default function Chart(props) {
     const handleDateChange = () => {
         const dateValue = dateSelectRef.current.value;
         changeDateByField(field, dateValue);
-        /*global.localforage.setItem(submissions.form_id, props.report)
-        .then(value => console.log(value))
-        .catch(err => console.log(err));*/
     }
 
     return (
         <div className=''>
             <strong>{title}</strong>
-            <select ref={chartTypeSelectRef} onChange={handleChartTypeChange}>
+            <select ref={chartTypeSelectRef} onChange={handleChartTypeChange} value={chartType}>
                 <option>Pie</option>
                 <option>Line</option>
             </select>
-            <select ref={dateSelectRef} onChange={handleDateChange}>
+            <select ref={dateSelectRef} onChange={handleDateChange} value={date}>
                 <option value='All'>All</option>
                 <option value='last7days'>Last 7 Days</option>
                 <option value='last3month'>Last 3 Month</option>

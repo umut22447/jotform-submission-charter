@@ -16,8 +16,7 @@ export const ReportProvider = ({ children, formId }) => {
     }
 
     const addNewReport = (rep) => {
-        const newReport = report;
-        newReport.push(rep);
+        const newReport = [...report, rep];
         setReport(newReport);
     }
 

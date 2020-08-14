@@ -206,7 +206,7 @@ const getReportFromDb = async (formId) => {
     return report;
 }
 
-const getDefaultReport = (formId) => {
+export const getDefaultReport = (formId) => {
     return getSubmissionQuestionsById(formId)
         .then(questions => {
             const chartArr = Object.keys(questions).filter(q => {

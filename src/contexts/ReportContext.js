@@ -8,13 +8,22 @@ const ReportContext = createContext({});
 export const ReportProvider = ({ children, formId }) => {
     const [form, setForm] = useState({});
     const [answers, setAnswers] = useState([]);
-    const [report, setReport] = useState([]);   //Represents chart enabled fields
+    const [report, _setReport] = useState([]);   //Represents chart enabled fields
     const [submissions, setSubmissions] = useState([]);
+    const setReport = newReport => {
+        _setReport(newReport);
+        localforage.setItem(String(form.id), newReport);
+    }
+
+    const addNewReport = (rep) => {
+        const newReport = report;
+        newReport.push(rep);
+        setReport(newReport);
+    }
 
     const deleteChartByField = (field) => {
         const newReport = report.filter(r => r.field !== field);
         setReport(newReport);
-        localforage.setItem(String(form.id),newReport);
     }
 
     const changeChartTypeByField = (field, chartType) => {
@@ -27,9 +36,6 @@ export const ReportProvider = ({ children, formId }) => {
         });
 
         setReport(newReport);
-        localforage.setItem(String(form.id), newReport)
-            .then(value => console.log(value))
-            .catch(err => console.log(err));
     }
 
     const changeDateByField = (field, date) => {
@@ -42,9 +48,6 @@ export const ReportProvider = ({ children, formId }) => {
         });
 
         setReport(newReport);
-        localforage.setItem(String(form.id), newReport)
-            .then(value => { console.log(value) })
-            .catch(err => console.log(err));
     }
 
     useEffect(() => {
@@ -60,12 +63,12 @@ export const ReportProvider = ({ children, formId }) => {
         getFormById(formId)
             .then(setForm);
 
-        getReportByFormId(formId).then(setReport);
+        getReportByFormId(formId).then(_setReport);
 
     }, [formId])
 
     return (
-        <ReportContext.Provider value={{ report, answers, form, deleteChartByField, changeChartTypeByField, changeDateByField, submissions }}>
+        <ReportContext.Provider value={{ report, answers, form, deleteChartByField, changeChartTypeByField, changeDateByField, submissions, addNewReport }}>
             {children}
         </ReportContext.Provider>
     )

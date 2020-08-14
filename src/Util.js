@@ -1,6 +1,7 @@
 import localforage from 'localforage'
 import { getSubmissionQuestionsById } from './api'
 
+
 export const fillDataArray = (answers, field) => {
     var dataArr = [];
     answers.forEach(a => {
@@ -222,7 +223,7 @@ export const getDefaultReport = (formId) => {
             });
             const newReport = chartArr.map(field => {
                 let title = questions[field].text;
-                let reportObject = { "field": field, "title": title, "chartType": "Pie", "date": "All" };
+                let reportObject = {"field": field, "title": title, "chartType": "Pie", "date": "All" };
                 return reportObject;
             })
             return newReport;

@@ -5,10 +5,11 @@ import { useReport } from '../contexts/ReportContext'
 
 export default function Chart(props) {
     const divRef = useRef();
-    const { answers, deleteChartByField, changeChartTypeByField, changeDateByField, submissions } = useReport();
+    const { answers, deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions } = useReport();
     const { field, title, chartType, date } = props.report;
+    const reportIndex = props.index;
     const handleClick = () => {
-        deleteChartByField(field);
+        deleteChartByIndex(reportIndex);
     }
 
     useEffect(() => {
@@ -24,12 +25,12 @@ export default function Chart(props) {
 
     const handleChartTypeChange = (event) => {
         const selectedValue = event.target.value;
-        changeChartTypeByField(field, selectedValue);
+        changeChartTypeByField(reportIndex, selectedValue);
     }
 
     const handleDateChange = (event) => {
         const dateValue = event.target.value;
-        changeDateByField(field, dateValue);
+        changeDateByField(reportIndex, dateValue);
     }
 
     return (

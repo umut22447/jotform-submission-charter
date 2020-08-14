@@ -21,14 +21,14 @@ export const ReportProvider = ({ children, formId }) => {
         setReport(newReport);
     }
 
-    const deleteChartByField = (field) => {
-        const newReport = report.filter(r => r.field !== field);
+    const deleteChartByIndex = (index) => {
+        const newReport = report.filter( (r, reportIndex) => reportIndex !== index);    //If the given index is not the searching element then keep it in the array.
         setReport(newReport);
     }
 
-    const changeChartTypeByField = (field, chartType) => {
-        const newReport = report.map(r => {
-            if (field === r.field) {
+    const changeChartTypeByField = (index, chartType) => {
+        const newReport = report.map((r, reportIndex) => {
+            if (index === reportIndex) {
                 return { ...r, chartType }
             }
 
@@ -38,9 +38,9 @@ export const ReportProvider = ({ children, formId }) => {
         setReport(newReport);
     }
 
-    const changeDateByField = (field, date) => {
-        const newReport = report.map(r => {
-            if (field === r.field) {
+    const changeDateByField = (index, date) => {
+        const newReport = report.map((r,reportIndex) => {
+            if (index === reportIndex) {
                 return { ...r, date }
             }
 
@@ -68,7 +68,7 @@ export const ReportProvider = ({ children, formId }) => {
     }, [formId])
 
     return (
-        <ReportContext.Provider value={{ report, answers, form, deleteChartByField, changeChartTypeByField, changeDateByField, submissions, addNewReport }}>
+        <ReportContext.Provider value={{ report, answers, form, deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, addNewReport }}>
             {children}
         </ReportContext.Provider>
     )

@@ -23,10 +23,10 @@ export default function FormReport() {
     return (
         <div>
             <h1>Answer Reports for <strong className='text-info'>{form.title}</strong></h1><br />
-
+            
             <br />
-            {report.map(r => {
-                return (<Chart report={r} />)
+            {report.map( (r,index) => {
+                return (<Chart report={r} index={index}/>)
             })}
 
             <div>

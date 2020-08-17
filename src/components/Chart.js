@@ -5,7 +5,7 @@ import { useReport } from '../contexts/ReportContext'
 
 export default function Chart(props) {
     const divRef = useRef();
-    const { answers, deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions } = useReport();
+    const { answers, deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, swapReportElements, onDragStart } = useReport();
     const { field, title, chartType, date } = props.report;
     const reportIndex = props.index;
     const handleClick = () => {
@@ -37,20 +37,17 @@ export default function Chart(props) {
         event.preventDefault();
     }
 
-    const drag = (event) => {
-        event.dataTransfer.setData("text", reportIndex);
-        console.log(reportIndex);
+    const drag = () => {
+        onDragStart(reportIndex);
     }
 
     const drop = (event) => {
-        //swapReportElements(reportIndex, dragElementIndex);
         event.preventDefault();
-        var dragElementIndex = event.dataTransfer.getData("text");
-        console.log("SURUKLENEN REPORT INDEX = " + dragElementIndex + "  BIRAKILAN REPORT INDEX = " + reportIndex)
+        swapReportElements(reportIndex);
     }
 
     return (
-        <div className='' draggable="true" onDragOver={allowDrop} ondragstart={drag} onDrop={drop}>
+        <div className='' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
             <strong>{title}</strong>
             <select onChange={handleChartTypeChange} value={chartType}>
                 <option>Pie</option>

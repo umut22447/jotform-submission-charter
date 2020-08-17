@@ -10,9 +10,22 @@ export const ReportProvider = ({ children, formId }) => {
     const [answers, setAnswers] = useState([]);
     const [report, _setReport] = useState([]);   //Represents chart enabled fields
     const [submissions, setSubmissions] = useState([]);
+    const [dragIndex, setDragIndex] = useState(0);
     const setReport = newReport => {
         _setReport(newReport);
         localforage.setItem(String(form.id), newReport);
+    }
+
+    const onDragStart = (index) => {
+        setDragIndex(index);
+    }
+
+    const swapReportElements = (reportIndex) => {
+        const newReport = [...report];
+        const reportElement = newReport[reportIndex];
+        newReport[reportIndex] = newReport[dragIndex];
+        newReport[dragIndex] = reportElement;
+        setReport(newReport);
     }
 
     const addNewReport = (rep) => {
@@ -67,7 +80,7 @@ export const ReportProvider = ({ children, formId }) => {
     }, [formId])
 
     return (
-        <ReportContext.Provider value={{ report, answers, form, deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, addNewReport }}>
+        <ReportContext.Provider value={{ report, answers, form, deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, addNewReport, onDragStart, swapReportElements }}>
             {children}
         </ReportContext.Provider>
     )

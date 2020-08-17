@@ -6,8 +6,8 @@ import { getForms } from '../api'
 const FormsContext = createContext({});
 
 export const FormsProvider = ({ children }) => {
-    const [forms, setForms] = useState([]);
-    const [filteredForms, setFilteredForms] = useState([]);
+    const [forms, setForms] = useState([]); //Includes all form
+    const [filteredForms, setFilteredForms] = useState([]); //The forms depends on the conditions
 
     useEffect(() => {
         getForms()

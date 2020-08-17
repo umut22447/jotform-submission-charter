@@ -11,7 +11,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Link
+  NavLink
 } from 'react-router-dom'
 import { Navbar, Nav } from 'react-bootstrap';
 import logo from './images/logo.png'
@@ -33,7 +33,7 @@ ReactDOM.render(
             JotForm Submission Charter
           </Navbar.Brand>
           <Nav className='mr-auto'>
-            <Link to='/formlist'>Form List</Link>
+            <NavLink to='/formlist'><button type="button" class="btn btn-dark">Form List</button></NavLink>
           </Nav>
           <Logout />
         </Navbar>

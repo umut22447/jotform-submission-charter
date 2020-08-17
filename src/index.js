@@ -9,7 +9,8 @@ import SearchBox from './components/SearchBox'
 import {
   BrowserRouter as Router,
   Route,
-  Switch
+  Switch,
+  Link
 } from 'react-router-dom'
 import { Navbar, Nav } from 'react-bootstrap';
 import logo from './images/logo.png'
@@ -31,7 +32,7 @@ ReactDOM.render(
             JotForm Submission Charter
           </Navbar.Brand>
           <Nav className='mr-auto'>
-            <Nav.Link href='/formlist'>Form List</Nav.Link>
+            <Link to='/formlist'>Form List</Link>
           </Nav>
         </Navbar>
         <Switch>

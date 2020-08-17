@@ -33,8 +33,24 @@ export default function Chart(props) {
         changeDateByField(reportIndex, dateValue);
     }
 
+    const allowDrop = (event) => {
+        event.preventDefault();
+    }
+
+    const drag = (event) => {
+        event.dataTransfer.setData("text", reportIndex);
+        console.log(reportIndex);
+    }
+
+    const drop = (event) => {
+        //swapReportElements(reportIndex, dragElementIndex);
+        event.preventDefault();
+        var dragElementIndex = event.dataTransfer.getData("text");
+        console.log("SURUKLENEN REPORT INDEX = " + dragElementIndex + "  BIRAKILAN REPORT INDEX = " + reportIndex)
+    }
+
     return (
-        <div className=''>
+        <div className='' draggable="true" onDragOver={allowDrop} ondragstart={drag} onDrop={drop}>
             <strong>{title}</strong>
             <select onChange={handleChartTypeChange} value={chartType}>
                 <option>Pie</option>

@@ -4,13 +4,16 @@ import React, {
 import { getUser } from '../api'
 
 const AuthContext = createContext({});
+export const api = {};
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        getUser()
-        .then(setUser);
+        global.JF.login(() => {
+            api.key = global.JF.getAPIKey();
+            getUser(api.key).then(setUser);
+        });
     }, []);
 
     return (

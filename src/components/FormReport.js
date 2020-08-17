@@ -15,9 +15,8 @@ export default function FormReport() {
 
     const handleAddClick = () => {
         const field = selectRef.current.value;
-        const newReport = reportForOptions.filter(r => r.field === field);
-        console.log(newReport[0]);  //Since I use 0 index of newReport is, filter returns an object array which length is always 1.
-        addNewReport(newReport[0]);
+        const newReport = reportForOptions.filter(r => r.field === field);  
+        addNewReport(newReport[0]);     //Since I use 0 index of newReport is, filter returns an object array which length is always 1.
     }
 
     return (

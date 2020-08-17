@@ -28,7 +28,7 @@ export default function FormReport() {
                 return (<Chart report={r} index={index} />)
             })}
 
-            <div className="border border-3">
+            <div className="border border-success">
                 <div>
                     <select ref={selectRef}>
                         {reportForOptions.map(r => {

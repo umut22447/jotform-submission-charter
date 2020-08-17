@@ -11,6 +11,12 @@ export const api = {};
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
+    const logout = () => {
+        global.JF.logout();
+        localforage.removeItem("api");
+        setUser(null);
+    }
+
     useEffect(() => {
         localforage.getItem("api").then(p => {
             if (p) {
@@ -29,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user }}>
+        <AuthContext.Provider value={{ user, logout }}>
             {user ? children : null}
         </AuthContext.Provider>
     );

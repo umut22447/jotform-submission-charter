@@ -6,6 +6,7 @@ import { FormsProvider } from './contexts/FormsContext'
 import FormList from './components/FormList'
 import FormReportPage from './components/FormReportPage';
 import SearchBox from './components/SearchBox'
+import Logout from './components/Logout'
 import {
   BrowserRouter as Router,
   Route,
@@ -34,6 +35,7 @@ ReactDOM.render(
           <Nav className='mr-auto'>
             <Link to='/formlist'>Form List</Link>
           </Nav>
+          <Logout />
         </Navbar>
         <Switch>
           <Route path="/formlist">

@@ -38,3 +38,11 @@ textarea {overflow:auto;}
     border: 2px darkblue solid;
 }
 
+.form-list-element{ 
+    color: #000000;
+}
+
+.form-list-element:hover{
+    color: gray;
+    text-decoration: none;
+}

@@ -84,8 +84,8 @@ export const drawPieChart = (dataArray, divRef) => {
         data.addColumn('number', 'Answer Count');
         data.addRows(dataArray);
         var options = {
-            'width': 400,
-            'height': 300
+            'width': 500,
+            'height': 400
         };
         var chart = new global.google.visualization.PieChart(divRef.current);
         chart.draw(data, options);
@@ -102,7 +102,9 @@ export const drawLineChart = (dataArray, divRef) => {
         var options = {
             title: 'Company Performance',
             curveType: 'function',
-            legend: { position: 'bottom' }
+            legend: { position: 'bottom' },
+            'width': 500,
+            'height': 400
         };
 
         var chart = new global.google.visualization.LineChart(divRef.current);

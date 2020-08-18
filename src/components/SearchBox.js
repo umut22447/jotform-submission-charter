@@ -11,9 +11,9 @@ export default function SearchBox(){
     }
 
     return (
-        <div className='d-flex justify-content-center mt-3'>
+        <div className='searchbox-root-div'>
             <div>
-                <input class="rounded" type="search" placeholder="Search Form" aria-label="Search" onChange={handleChange}/>
+                <input className="rounded w-100" type="search" placeholder="Search Form" aria-label="Search" onChange={handleChange}/>
             </div>
         </div>
 

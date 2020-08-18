@@ -46,3 +46,21 @@ textarea {overflow:auto;}
     color: gray;
     text-decoration: none;
 }
+
+.searchbox-root-div{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.searchbox-root-div > div{
+    width: 600px;
+    text-align: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .searchbox-root-div > div{
+       width: 40%;
+    }
+ }

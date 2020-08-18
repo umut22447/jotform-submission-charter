@@ -55,6 +55,7 @@ export default function Chart(props) {
     return (
         <div className='float-left' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
             <strong contentEditable="true" onBlur={handleHeaderChange}>{title}</strong>
+            <div ref={divRef} />
             <select onChange={handleChartTypeChange} value={chartType}>
                 <option>Pie</option>
                 <option>Line</option>
@@ -64,7 +65,6 @@ export default function Chart(props) {
                 <option value='last7days'>Last 7 Days</option>
                 <option value='last3month'>Last 3 Month</option>
             </select>
-            <div ref={divRef} />
             <button className='btn btn-danger' onClick={handleClick}>Delete</button>
         </div>
     );

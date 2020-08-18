@@ -14,7 +14,8 @@ export default function FormList() {
                             <Form
                                 title={form.title}
                                 formId={form.id}
-                                answerCount={form.count} />
+                                answerCount={form.count}
+                                formType={form.type} />
                         )
                     })
                 }

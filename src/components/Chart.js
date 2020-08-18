@@ -3,6 +3,7 @@ import { drawPieChart, drawLineChart, fillDataArrayByDate, fillDataForLineChart 
 import { useReport } from '../contexts/ReportContext'
 
 
+
 export default function Chart(props) {
     const divRef = useRef();
     const { answers, deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, swapReportElements, onDragStart } = useReport();
@@ -46,9 +47,14 @@ export default function Chart(props) {
         swapReportElements(reportIndex);
     }
 
+    const handleHeaderChange = (event) => {
+        const newValue = event.target.innerText;
+        console.log("DWDWDWDWD");
+    }
+
     return (
-        <div className='' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
-            <strong>{title}</strong>
+        <div className='float-left' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
+            <strong contentEditable="true" onChange={handleHeaderChange}>{title}</strong>
             <select onChange={handleChartTypeChange} value={chartType}>
                 <option>Pie</option>
                 <option>Line</option>

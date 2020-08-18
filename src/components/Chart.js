@@ -6,7 +6,7 @@ import { useReport } from '../contexts/ReportContext'
 
 export default function Chart(props) {
     const divRef = useRef();
-    const { answers, deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, swapReportElements, onDragStart } = useReport();
+    const { answers, deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, swapReportElements, onDragStart, reportTitleChange } = useReport();
     const { field, title, chartType, date } = props.report;
     const reportIndex = props.index;
     const handleClick = () => {
@@ -49,12 +49,12 @@ export default function Chart(props) {
 
     const handleHeaderChange = (event) => {
         const newValue = event.target.innerText;
-        console.log("DWDWDWDWD");
+        reportTitleChange(reportIndex, newValue);
     }
 
     return (
         <div className='float-left' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
-            <strong contentEditable="true" onChange={handleHeaderChange}>{title}</strong>
+            <strong contentEditable="true" onBlur={handleHeaderChange}>{title}</strong>
             <select onChange={handleChartTypeChange} value={chartType}>
                 <option>Pie</option>
                 <option>Line</option>

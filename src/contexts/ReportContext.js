@@ -16,6 +16,12 @@ export const ReportProvider = ({ children, formId }) => {
         localforage.setItem(String(form.id), newReport);
     }
 
+    const reportTitleChange = (index,value) => {
+        const newReport = [...report];
+        newReport[index].title = value;
+        setReport(newReport);
+    }
+
     const onDragStart = (index) => {
         setDragIndex(index);
     }
@@ -80,7 +86,10 @@ export const ReportProvider = ({ children, formId }) => {
     }, [formId])
 
     return (
-        <ReportContext.Provider value={{ report, answers, form, deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, addNewReport, onDragStart, swapReportElements }}>
+        <ReportContext.Provider value={{ report, answers, form, deleteChartByIndex, 
+        changeChartTypeByField, changeDateByField, 
+        submissions, addNewReport, onDragStart, 
+        swapReportElements, reportTitleChange }}>
             {children}
         </ReportContext.Provider>
     )

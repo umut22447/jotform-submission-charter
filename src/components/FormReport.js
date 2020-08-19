@@ -20,11 +20,12 @@ export default function FormReport() {
     }
 
     return (
-        <div>
-            <h1>Reports for <strong className='text-info'>{form.title}</strong></h1><br />
+        <div className='report-page-root-div'>
+            <div>
+                <h1>Reports for <strong className='text-info'>{form.title}</strong></h1>
+            </div>
 
-            <br />
-            <div className='d-flex flex-wrap'>
+            <div className='d-flex flex-wrap mw-1000'>
                 {report.map((r, index) => {
                     return (<Chart report={r} index={index} />)
                 })}
@@ -43,10 +44,8 @@ export default function FormReport() {
                         </svg></button>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
+
     )
 }

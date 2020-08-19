@@ -72,5 +72,18 @@ textarea {overflow:auto;}
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px green dotted;
+    border: 3px green dotted;
+ }
+
+ .report-page-root-div{
+     width: 100%;
+     height: auto;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-flow: column;
+ }
+
+ .mw-1000{
+     max-width: 1612px !important;
  }

@@ -1,9 +1,9 @@
 import React from 'react'
-import {useForms} from '../contexts/FormsContext'
+import { useForms } from '../contexts/FormsContext'
 
-export default function SearchBox(){
+export default function SearchBox() {
 
-    const {forms, setFilteredForms} = useForms();
+    const { forms, setFilteredForms } = useForms();
     const handleChange = (event) => {
         let newValue = event.target.value;
         const newForms = forms.filter(form => form.title.toLowerCase().includes(newValue.toLowerCase()));
@@ -13,7 +13,7 @@ export default function SearchBox(){
     return (
         <div className='searchbox-root-div'>
             <div>
-                <input className="rounded w-100" type="search" placeholder="Search Form" aria-label="Search" onChange={handleChange}/>
+                <input className="rounded w-100" type="search" placeholder="Search Form" aria-label="Search" onChange={handleChange} />
             </div>
         </div>
 

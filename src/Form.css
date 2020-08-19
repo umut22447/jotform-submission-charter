@@ -64,3 +64,13 @@ textarea {overflow:auto;}
        width: 40%;
     }
  }
+
+ .new-chart-add-root-div{
+    width: 500px;
+    height: 400px; 
+    margin: 30px 0 30px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px green dotted;
+ }

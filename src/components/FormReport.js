@@ -29,7 +29,7 @@ export default function FormReport() {
                     return (<Chart report={r} index={index} />)
                 })}
 
-                <div className='d-flex justify-content-center align-items-center flex-wrap' style={{width: 500, height:400}}>
+                <div className='new-chart-add-root-div'>
                     <select ref={selectRef}>
                         {reportForOptions.map(r => {
                             return <option value={r.field}>{r.title}</option>

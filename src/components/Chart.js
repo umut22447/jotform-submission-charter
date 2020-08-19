@@ -53,10 +53,10 @@ export default function Chart(props) {
     }
 
     return (
-        <div className='d-flex flex-column' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
+        <div className='d-flex flex-column m-3' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
             <strong contentEditable="true" onBlur={handleHeaderChange}>{title}</strong>
-            <div ref={divRef} className="border border-success" />
-            <div className='border border-success'>
+            <div ref={divRef} className="border border-secondary" />
+            <div className='border border-secondary'>
                 <select onChange={handleChartTypeChange} value={chartType}>
                     <option value="Pie">Pie Chart</option>
                     <option value="Line">Line Chart</option>
@@ -66,7 +66,7 @@ export default function Chart(props) {
                     <option value='last7days'>Last 7 Days</option>
                     <option value='last3month'>Last 3 Month</option>
                 </select>
-                <button className='btn btn-danger' onClick={handleClick}>Delete</button>
+                <button className='btn btn-danger float-right' onClick={handleClick}>Delete</button>
             </div>
 
         </div>

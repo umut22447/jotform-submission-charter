@@ -33,12 +33,12 @@ ReactDOM.render(
             JotForm Submission Charter
           </Navbar.Brand>
           <Nav className='mr-auto'>
-            <NavLink to='/formlist'><button type="button" class="btn btn-dark">Form List</button></NavLink>
+            <NavLink to='/'><button type="button" class="btn btn-dark">Form List</button></NavLink>
           </Nav>
           <Logout />
         </Navbar>
         <Switch>
-          <Route path="/formlist">
+          <Route exact path="/">
             <div>
               <h2 className='d-flex justify-content-center'>Select a Form and See the Charter</h2>
               <SearchBox />

@@ -11,28 +11,32 @@ export const api = {};
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
-    const logout = () => {
-        global.JF.logout();
-        localforage.removeItem("api");
+    const logout = async () => {
+        await global.JF.logout();
+        await localforage.removeItem("api");
         setUser(null);
     }
 
     useEffect(() => {
-        localforage.getItem("api").then(p => {
-            if (p) {
-                api.key = p.key;
-                console.log("GIRIS YAPILMIS")
-                getUser(api.key).then(setUser);
-            }
-            else {
-                global.JF.login(() => {
-                    api.key = global.JF.getAPIKey();
-                    localforage.setItem("api", api);
+        if (user === null) {
+            console.log("USER NULL OLDU")
+            localforage.getItem("api").then(p => {
+                if (p) {
+                    api.key = p.key;
+                    console.log("GIRIS YAPILMIS")
                     getUser(api.key).then(setUser);
-                });
-            }
-        });
-    }, []);
+                }
+                else {
+                    global.JF.login(() => {
+                        console.log("GİRİS YAPILIYOTR")
+                        api.key = global.JF.getAPIKey();
+                        localforage.setItem("api", api);
+                        getUser(api.key).then(setUser);
+                    });
+                }
+            });
+        }
+    }, [user]);
 
     return (
         <AuthContext.Provider value={{ user, logout }}>

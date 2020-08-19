@@ -47,7 +47,6 @@ export const fillDataArrayByDate = (field, date, submissions) => {
         return null;
     })
     const filteredAnswers = answers.filter(a => a !== null);
-    console.log(filteredAnswers);
     return fillDataArray(filteredAnswers, field);
 }
 
@@ -100,7 +99,6 @@ export const drawLineChart = (dataArray, divRef) => {
         var data = new global.google.visualization.arrayToDataTable(dataArray);
 
         var options = {
-            title: 'Company Performance',
             curveType: 'function',
             legend: { position: 'bottom' },
             'width': 500,
@@ -119,7 +117,6 @@ export const fillDataForLineChart = (submissions, field, date) => {
     const dateCondition = getConditionDate(date);
     const filteredSubmissions = submissions.filter(s => new Date(s.created_at) >= dateCondition);
     var dataArray = [];
-    console.log(filteredSubmissions);
     var newRow = ["Date"];
     filteredSubmissions.forEach(s => {
         const ans = s.answers[field].answer;

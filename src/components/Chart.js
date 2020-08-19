@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { drawPieChart, drawLineChart, fillDataArrayByDate, fillDataForLineChart } from '../Util'
+import { drawPieChart, drawLineChart, drawBarChart, fillDataArrayByDate, fillDataForLineChart } from '../Util'
 import { useReport } from '../contexts/ReportContext'
 
 
@@ -18,9 +18,13 @@ export default function Chart(props) {
             const dataArr = fillDataArrayByDate(field, date, submissions);
             drawPieChart(dataArr, divRef);
         }
-        else {
+        else if(chartType === "Line"){
             const dataArr = fillDataForLineChart(submissions, field, date);
             drawLineChart(dataArr, divRef);
+        }
+        else{
+            const dataArr = fillDataArrayByDate(field, date, submissions);
+            drawBarChart(dataArr, divRef);
         }
     }, [field, divRef, title, chartType, date, submissions]);
 
@@ -60,6 +64,7 @@ export default function Chart(props) {
                 <select onChange={handleChartTypeChange} value={chartType}>
                     <option value="Pie">Pie Chart</option>
                     <option value="Line">Line Chart</option>
+                    <option value="Bar">Bar Chart</option>
                 </select>
                 <select onChange={handleDateChange} value={date}>
                     <option value='All'>All</option>
@@ -68,7 +73,6 @@ export default function Chart(props) {
                 </select>
                 <button className='btn btn-danger float-right' onClick={handleClick}>Delete</button>
             </div>
-
         </div>
 
     );

@@ -113,6 +113,23 @@ export const drawLineChart = (dataArray, divRef) => {
     global.google.charts.setOnLoadCallback(drawBackgroundColor);
 }
 
+export const drawBarChart = (dataArr, divRef) => {
+    const draw = () => {
+        var data = new global.google.visualization.DataTable();
+        data.addColumn('string', 'Answer');
+        data.addColumn('number', 'Number of Answers');
+        data.addRows(dataArr);
+        var materialOptions = {
+            width: 500,
+            height: 400
+        };
+        var materialChart = new global.google.charts.Bar(divRef.current);
+        materialChart.draw(data, materialOptions);
+    }
+    global.google.charts.load('current', { packages: ['corechart', 'bar'] });
+    global.google.charts.setOnLoadCallback(draw);
+}
+
 export const fillDataForLineChart = (submissions, field, date) => {
     const dateCondition = getConditionDate(date);
     const filteredSubmissions = submissions.filter(s => new Date(s.created_at) >= dateCondition);

@@ -130,7 +130,7 @@ export const drawBarChart = (dataArr, divRef) => {
     global.google.charts.setOnLoadCallback(draw);
 }
 
-export const fillDataForLineChart = (submissions, field, date) => {
+export const fillDataForLineChart = (field, date, submissions) => {
     const dateCondition = getConditionDate(date);
     const filteredSubmissions = submissions.filter(s => new Date(s.created_at) >= dateCondition);
     var dataArray = [];

@@ -19,7 +19,7 @@ export default function Chart(props) {
             drawPieChart(dataArr, divRef);
         }
         else if(chartType === "Line"){
-            const dataArr = fillDataForLineChart(submissions, field, date);
+            const dataArr = fillDataForLineChart(field, date, submissions);
             drawLineChart(dataArr, divRef);
         }
         else{

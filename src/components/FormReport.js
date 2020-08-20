@@ -3,6 +3,7 @@ import Chart from './Chart'
 import { useReport } from '../contexts/ReportContext'
 import { getDefaultReport } from '../Util'
 import htmlToImage from 'html-to-image';
+import download from 'downloadjs'
 
 export default function FormReport() {
 
@@ -24,9 +25,11 @@ export default function FormReport() {
 
     const handleClick = () => {
         var node = divRef.current;
-        htmlToImage.toPng(node, {backgroundColor: '#FFF'}).then(console.log);
+        htmlToImage.toPng(node, { backgroundColor: '#FFF' })
+            .then((dataUrl) => {
+                download(dataUrl, 'report.png');
+            });
     }
-
 
     return (
         <div className='report-page-root-div' ref={divRef}>

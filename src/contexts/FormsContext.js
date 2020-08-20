@@ -8,17 +8,20 @@ const FormsContext = createContext({});
 export const FormsProvider = ({ children }) => {
     const [forms, setForms] = useState([]); //Includes all form
     const [filteredForms, setFilteredForms] = useState([]); //The forms depends on the conditions
+    const [searchValue, setSearchValue] = useState("");
 
     useEffect(() => {
         getForms()
-        .then(forms => {
-            setForms(forms);
-            setFilteredForms(forms);
-        });
+            .then(setForms);
     }, []);
 
+    useEffect(() => {
+        const newForms = forms.filter(form => form.title.toLowerCase().includes(searchValue.toLowerCase()));
+        setFilteredForms(newForms);
+    }, [forms, searchValue]);
+
     return (
-        <FormsContext.Provider value={{ forms, setForms, filteredForms, setFilteredForms }}>
+        <FormsContext.Provider value={{ forms, setForms, filteredForms, setSearchValue, searchValue }}>
             {children}
         </FormsContext.Provider>
     );

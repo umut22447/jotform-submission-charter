@@ -2,15 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import Chart from './Chart'
 import { useReport } from '../contexts/ReportContext'
 import { getDefaultReport } from '../Util'
+import htmlToImage from 'html-to-image';
 
 export default function FormReport() {
 
     const { form, report, addNewReport } = useReport();
     const [reportForOptions, setReportForOptions] = useState([]);
     const selectRef = useRef();
+    const divRef = useRef();
 
     useEffect(() => {
         getDefaultReport(form.id).then(setReportForOptions);
+
     }, [form]);
 
     const handleAddClick = () => {
@@ -19,10 +22,16 @@ export default function FormReport() {
         addNewReport(newReport[0]);     //Since I use 0 index of newReport is, filter returns an object array which length is always 1.
     }
 
+    const handleClick = () => {
+        var node = divRef.current;
+        htmlToImage.toPng(node, {backgroundColor: '#FFF'}).then(console.log);
+    }
+
+
     return (
-        <div className='report-page-root-div'>
+        <div className='report-page-root-div' ref={divRef}>
             <div>
-                <h1>Reports for <strong className='text-info'>{form.title}</strong></h1>
+                <h1 >Reports for <strong className='text-info'>{form.title}</strong></h1>
             </div>
 
             <div className='d-flex flex-wrap mw-1000'>
@@ -45,6 +54,7 @@ export default function FormReport() {
                     </div>
                 </div>
             </div>
+            <button onClick={handleClick}>Click and get url</button>
         </div>
 
     )

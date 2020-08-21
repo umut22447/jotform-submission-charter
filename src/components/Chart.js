@@ -18,11 +18,11 @@ export default function Chart(props) {
             const dataArr = fillDataArrayByDate(field, date, submissions);
             drawPieChart(dataArr, divRef);
         }
-        else if(chartType === "Line"){
+        else if (chartType === "Line") {
             const dataArr = fillDataForLineChart(field, date, submissions);
             drawLineChart(dataArr, divRef);
         }
-        else{
+        else {
             const dataArr = fillDataArrayByDate(field, date, submissions);
             drawBarChart(dataArr, divRef);
         }
@@ -58,21 +58,29 @@ export default function Chart(props) {
 
     return (
         <div className='d-flex flex-column m-3' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
-            <strong contentEditable="true" onBlur={handleHeaderChange}>{title}</strong>
-            <div ref={divRef} className="border border-secondary" />
-            <div className='border border-secondary noexport'>
-                <select onChange={handleChartTypeChange} value={chartType}>
-                    <option value="Pie">Pie Chart</option>
-                    <option value="Line">Line Chart</option>
-                    <option value="Bar">Bar Chart</option>
-                </select>
-                <select onChange={handleDateChange} value={date}>
-                    <option value='All'>All</option>
-                    <option value='last7days'>Last 7 Days</option>
-                    <option value='last3month'>Last 3 Month</option>
-                </select>
-                <button className='btn btn-danger float-right' onClick={handleClick}>Delete</button>
+            <div class="card">
+                <div class="card-header d-flex flex-row">
+                    <h4 class="card-header-title mr-auto" contentEditable="true" onBlur={handleHeaderChange}>
+                        {title}
+                    </h4>
+                    <div class="nav nav-tabs nav-tabs-sm card-header-tabs noexport">
+                        <select class="nav-item" onChange={handleChartTypeChange} value={chartType}>
+                            <option value="Pie">Pie Chart</option>
+                            <option value="Line">Line Chart</option>
+                            <option value="Bar">Bar Chart</option>
+                        </select>
+                        <select class="nav-item" onChange={handleDateChange} value={date}>
+                            <option value='All'>All</option>
+                            <option value='last7days'>Last 7 Days</option>
+                            <option value='last3month'>Last 3 Month</option>
+                        </select>
+                    </div>
+                </div>
+                <div ref={divRef} className="border-right border-left border-bottom border-light" />
+
             </div>
+            <button className='btn btn-danger noexport' onClick={handleClick}>Delete</button>
+
         </div>
 
     );

@@ -25,11 +25,11 @@ export default function FormReport() {
 
     const handleClick = () => {
         var node = divRef.current;
-        document.body.className = "exporting";
+        document.body.classList.add("exporting");
         htmlToImage.toPng(node, { backgroundColor: '#FFF' })
             .then((dataUrl) => {
                 download(dataUrl, 'report.png');
-                document.body.className = "";
+                document.body.classList.remove("exporting");
             });
     }
 

@@ -60,7 +60,7 @@ export default function Chart(props) {
         <div className='d-flex flex-column m-3' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
             <strong contentEditable="true" onBlur={handleHeaderChange}>{title}</strong>
             <div ref={divRef} className="border border-secondary" />
-            <div className='border border-secondary'>
+            <div className='border border-secondary noexport'>
                 <select onChange={handleChartTypeChange} value={chartType}>
                     <option value="Pie">Pie Chart</option>
                     <option value="Line">Line Chart</option>

@@ -25,17 +25,19 @@ export default function FormReport() {
 
     const handleClick = () => {
         var node = divRef.current;
+        document.body.className = "exporting";
         htmlToImage.toPng(node, { backgroundColor: '#FFF' })
             .then((dataUrl) => {
                 download(dataUrl, 'report.png');
+                document.body.className = "";
             });
     }
 
     return (
         <div className='report-page-root-div' ref={divRef}>
             <div className="d-flex flex-column">
-                <h1 >Reports for <strong className='text-info'>{form.title}</strong></h1>
-                <button class="btn btn-primary" onClick={handleClick}> <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <h1>Reports for <strong className='text-info'>{form.title}</strong></h1>
+                <button class="btn btn-primary noexport" onClick={handleClick}> <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z" />
                     <path fill-rule="evenodd" d="M8 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z" />
                 </svg>Download Report as PNG</button>
@@ -46,7 +48,7 @@ export default function FormReport() {
                     return (<Chart report={r} index={index} />)
                 })}
 
-                <div className='new-chart-add-root-div'>
+                <div className='new-chart-add-root-div noexport'>
                     <div className='d-flex flex-column'>
                         <select ref={selectRef}>
                             {reportForOptions.map(r => {

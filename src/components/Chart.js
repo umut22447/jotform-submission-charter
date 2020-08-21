@@ -59,24 +59,27 @@ export default function Chart(props) {
     return (
         <div className='d-flex flex-column m-3' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
             <div class="card">
-                <div class="card-header d-flex flex-row">
-                    <h4 class="card-header-title mr-auto" contentEditable="true" onBlur={handleHeaderChange}>
+                <div class="card-header d-flex flex-row justify-content-center align-items-center bg-white">
+                    <h5 class="card-header-title mr-auto" contentEditable="true" onBlur={handleHeaderChange}>
                         {title}
-                    </h4>
+                    </h5>
                     <div class="nav nav-tabs nav-tabs-sm card-header-tabs noexport">
-                        <select class="nav-item" onChange={handleChartTypeChange} value={chartType}>
+                        <select class="" onChange={handleChartTypeChange} value={chartType}>
                             <option value="Pie">Pie Chart</option>
                             <option value="Line">Line Chart</option>
                             <option value="Bar">Bar Chart</option>
                         </select>
-                        <select class="nav-item" onChange={handleDateChange} value={date}>
+                        <select class="" onChange={handleDateChange} value={date}>
                             <option value='All'>All</option>
                             <option value='last7days'>Last 7 Days</option>
                             <option value='last3month'>Last 3 Month</option>
                         </select>
                     </div>
                 </div>
-                <div ref={divRef} className="border-right border-left border-bottom border-light" />
+                <div className='card-body'>
+                    <div ref={divRef} className="border-right border-left border-bottom border-light" />
+                </div>
+
 
             </div>
             <button className='btn btn-outline-danger noexport' onClick={handleClick}>Delete</button>

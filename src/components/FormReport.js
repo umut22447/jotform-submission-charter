@@ -34,8 +34,8 @@ export default function FormReport() {
     }
 
     return (
-        <div className='report-page-root-div' ref={divRef}>
-            <div className="d-flex flex-column">
+        <div className='report-page-root-div bg-light' ref={divRef}>
+            <div className="d-flex flex-row justify-content-between mt-3" style={{ width: '90%' }}>
                 <h1>Reports for <strong className='text-info'>{form.title}</strong></h1>
                 <button class="btn btn-primary noexport" onClick={handleClick}> <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z" />
@@ -63,7 +63,6 @@ export default function FormReport() {
                     </div>
                 </div>
             </div>
-
         </div>
 
     )

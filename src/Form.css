@@ -66,7 +66,7 @@ textarea {overflow:auto;}
  }
 
  .new-chart-add-root-div{
-    width: 500px;
+    width: 545px;
     height: 485px; 
     margin: 17px 0 30px 15px;
     display: flex;
@@ -85,5 +85,5 @@ textarea {overflow:auto;}
  }
 
  .mw-1000{
-     max-width: 1612px !important;
+     max-width: 1735px !important;
  }

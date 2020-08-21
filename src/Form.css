@@ -67,8 +67,8 @@ textarea {overflow:auto;}
 
  .new-chart-add-root-div{
     width: 500px;
-    height: 400px; 
-    margin: 30px 0 30px 15px;
+    height: 485px; 
+    margin: 17px 0 30px 15px;
     display: flex;
     justify-content: center;
     align-items: center;

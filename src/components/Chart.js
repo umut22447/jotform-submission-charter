@@ -79,7 +79,7 @@ export default function Chart(props) {
                 <div ref={divRef} className="border-right border-left border-bottom border-light" />
 
             </div>
-            <button className='btn btn-danger noexport' onClick={handleClick}>Delete</button>
+            <button className='btn btn-outline-danger noexport' onClick={handleClick}>Delete</button>
 
         </div>
 

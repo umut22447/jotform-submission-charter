@@ -88,6 +88,9 @@ textarea {overflow:auto;}
      max-width: 1735px !important;
  }
 
+ .mw-500{
+    max-width: 300px !important;
+ }
 
 
  .card-header{
@@ -110,9 +113,46 @@ textarea {overflow:auto;}
     margin-right: 0
  }
 
+ .header-toolbar{
+     display: flex;
+     flex: row;
+ }
+
  .chart-delete-button{
      background: white;
      border: 0px;
      color: #A9A9A9;
      float: right;
  }
+
+ .chart-delete-button:hover{
+     color: gray;
+ }
+
+ .chart-option-dropdown{
+    background: white;
+    border: 0px;
+    color: #A9A9A9;
+    float: right;
+    height: 30px;
+    margin-top: 4px;
+    margin-right: 3px;
+ }
+
+ .dropdown-submenu {
+    position: relative;
+  }
+  
+  .dropdown-submenu button::after {
+    transform: rotate(-90deg);
+    position: absolute;
+    right: 6px;
+    top: .8em;
+  }
+  
+  .dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-left: .1rem;
+    margin-right: .1rem;
+  }

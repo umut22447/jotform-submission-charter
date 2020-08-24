@@ -96,6 +96,7 @@ export const drawPieChart = (dataArray, divRef) => {
 export const drawLineChart = (dataArray, divRef) => {
 
     var drawBackgroundColor = () => {
+        console.log(dataArray);
         var data = new global.google.visualization.arrayToDataTable(dataArray);
         var options = {
             curveType: 'function',

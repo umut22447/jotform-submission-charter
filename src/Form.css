@@ -139,6 +139,10 @@ textarea {overflow:auto;}
     margin-right: 3px;
  }
 
+ .chart-option-dropdown:hover{
+     color: gray;
+ }
+
  .dropdown-submenu {
     position: relative;
   }

@@ -87,3 +87,32 @@ textarea {overflow:auto;}
  .mw-1000{
      max-width: 1735px !important;
  }
+
+
+
+ .card-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 60px;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+ }
+
+ .nav-tabs-sm{
+    font-size: .8125rem;
+ }
+
+ .card-header-tabs{
+    margin-top: -.5rem;
+    margin-bottom: -.5rem;
+    margin-left: 0;
+    margin-right: 0
+ }
+
+ .chart-delete-button{
+     background: white;
+     border: 0px;
+     color: #A9A9A9;
+     float: right;
+ }

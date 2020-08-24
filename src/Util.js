@@ -97,7 +97,6 @@ export const drawLineChart = (dataArray, divRef) => {
 
     var drawBackgroundColor = () => {
         var data = new global.google.visualization.arrayToDataTable(dataArray);
-
         var options = {
             curveType: 'function',
             legend: { position: 'bottom' },
@@ -123,6 +122,7 @@ export const drawBarChart = (dataArr, divRef) => {
             width: 500,
             height: 400
         };
+        console.log(data);
         var materialChart = new global.google.charts.Bar(divRef.current);
         materialChart.draw(data, materialOptions);
     }

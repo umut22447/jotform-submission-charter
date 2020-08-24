@@ -9,7 +9,7 @@ export default function Chart(props) {
     const { deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, swapReportElements, onDragStart, reportTitleChange } = useReport();
     const { field, title, chartType, date } = props.report;
     const reportIndex = props.index;
-    const handleClick = () => {
+    const handleClick = (event) => {
         deleteChartByIndex(reportIndex);
     }
 
@@ -59,31 +59,33 @@ export default function Chart(props) {
     return (
         <div className='d-flex flex-column m-3' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
             <div class="card">
-                <div class="card-header d-flex flex-row justify-content-center align-items-center bg-white">
+
+                <div class="card-header bg-white">
+
                     <h5 class="card-header-title mr-auto" contentEditable="true" onBlur={handleHeaderChange}>
                         {title}
                     </h5>
-                    <div class="nav nav-tabs nav-tabs-sm card-header-tabs noexport">
-                        <select class="" onChange={handleChartTypeChange} value={chartType}>
-                            <option value="Pie">Pie Chart</option>
-                            <option value="Line">Line Chart</option>
-                            <option value="Bar">Bar Chart</option>
-                        </select>
-                        <select class="" onChange={handleDateChange} value={date}>
-                            <option value='All'>All</option>
-                            <option value='last7days'>Last 7 Days</option>
-                            <option value='last3month'>Last 3 Month</option>
-                        </select>
-                    </div>
+                    <button className='chart-delete-button ml-auto p-2 noexport' onClick={handleClick}><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z" />
+                        <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z" />
+                    </svg></button>
                 </div>
                 <div className='card-body'>
                     <div ref={divRef} className="border-right border-left border-bottom border-light" />
                 </div>
-
-
             </div>
-            <button className='btn btn-outline-danger noexport' onClick={handleClick}>Delete</button>
-
+            <div>
+                <select className="" onChange={handleChartTypeChange} value={chartType}>
+                    <option value="Pie">Pie Chart</option>
+                    <option value="Line">Line Chart</option>
+                    <option value="Bar">Bar Chart</option>
+                </select>
+                <select className="" onChange={handleDateChange} value={date}>
+                    <option value='All'>All</option>
+                    <option value='last7days'>Last 7 Days</option>
+                    <option value='last3month'>Last 3 Month</option>
+                </select>
+            </div>
         </div>
 
     );

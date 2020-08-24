@@ -156,3 +156,8 @@ textarea {overflow:auto;}
     margin-left: .1rem;
     margin-right: .1rem;
   }
+
+  .dropdown-btn{
+      border: 0px;
+      background: white;
+  }

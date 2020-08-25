@@ -62,24 +62,26 @@ export default function Chart(props) {
                         {title}
                     </h5>
                     <div className="header-toolbar noexport">
-                        <div className="dropdown">
+                        <div className="dropdown ">
                             <button className="chart-option-dropdown dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <strong className="text-dark">{date === "last7days" ? "Last 7 Days" : date === "last3month" ? "Last 3 Months" : "All Time"}</strong>
                             </button>
-                            <ul className="dropdown-menu">
+                            <ul className="dropdown-menu dropdown-menu-right">
                                 <li className="drowdown-submenu">
-                                    <strong>Chart Type</strong>
-                                    <ul className="drowdown-menu">
-                                        <button className="dropdown-item" onClick={() => handleChartTypeChange("Pie")}>Pie Chart</button>
-                                        <button className="dropdown-item" onClick={() => handleChartTypeChange("Line")}>Line Chart</button>
-                                        <button className="dropdown-item" onClick={() => handleChartTypeChange("Bar")}> Bar Chart</button>
-                                    </ul>
-                                </li>
-                                <li className="drowdown-submenu">
-                                    <strong>Date</strong>
+                                    <strong className="m-3">Date</strong>
                                     <ul className="drowdown-menu">
                                         <button className="dropdown-item" onClick={() => handleDateChange("All")}>All</button>
                                         <button className="dropdown-item" onClick={() => handleDateChange("last7days")}>Last 7 Days</button>
                                         <button className="dropdown-item" onClick={() => handleDateChange("last3month")}>Last 3 Months</button>
+                                    </ul>
+                                </li>
+                                <div className="dropdown-divider"></div>
+                                <li className="drowdown-submenu">
+                                    <strong className="m-3">Chart Type</strong>
+                                    <ul className="drowdown-menu">
+                                        <button className="dropdown-item" onClick={() => handleChartTypeChange("Pie")}>Pie Chart</button>
+                                        <button className="dropdown-item" onClick={() => handleChartTypeChange("Line")}>Line Chart</button>
+                                        <button className="dropdown-item" onClick={() => handleChartTypeChange("Bar")}> Bar Chart</button>
                                     </ul>
                                 </li>
                             </ul>
@@ -91,11 +93,11 @@ export default function Chart(props) {
                         </svg></button>
                     </div>
 
+
                 </div>
                 <div className='card-body'>
                     <div ref={divRef} className="border-right border-left border-bottom border-light" />
                 </div>
-                Date = {date==="last7days" ? "Last 7 Days" : date==="last3month" ? "Last 3 Months" : date} / Chart Type = {chartType}
             </div>
 
         </div>

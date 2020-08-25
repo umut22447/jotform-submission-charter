@@ -71,7 +71,7 @@ textarea {overflow:auto;}
     margin: 17px 0 30px 15px;
     display: flex;
     justify-content: center;
-    border: 1px green dotted;
+    border: 2px green dotted;
  }
 
  .report-page-root-div{

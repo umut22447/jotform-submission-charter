@@ -164,3 +164,15 @@ textarea {overflow:auto;}
       border: 0px;
       background: white;
   }
+
+  ul.date-all .btn-all{
+      background: turquoise !important;
+  }
+
+  ul.date-last7days .btn-last7days{
+    background: turquoise !important;
+  }
+
+  ul.date-last3months .btn-last3month{
+    background: turquoise !important;
+  }

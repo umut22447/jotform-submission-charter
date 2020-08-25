@@ -26,6 +26,9 @@ export default function Chart(props) {
             const dataArr = fillDataArrayByDate(field, date, submissions);
             drawBarChart(dataArr, divRef);
         }
+
+
+
     }, [field, divRef, title, chartType, date, submissions]);
 
     const handleChartTypeChange = (chartType) => {
@@ -67,23 +70,23 @@ export default function Chart(props) {
                                 <strong className="text-dark">{date === "last7days" ? "Last 7 Days" : date === "last3month" ? "Last 3 Months" : "All Time"}</strong>
                             </button>
                             <ul className="dropdown-menu dropdown-menu-right">
-                                <li className="drowdown-submenu">
-                                    <strong className="m-3">Date</strong>
-                                    <ul className="drowdown-menu">
-                                        <button className="dropdown-item" onClick={() => handleDateChange("All")}>All</button>
-                                        <button className="dropdown-item" onClick={() => handleDateChange("last7days")}>Last 7 Days</button>
-                                        <button className="dropdown-item" onClick={() => handleDateChange("last3month")}>Last 3 Months</button>
-                                    </ul>
-                                </li>
+
+                                <strong className="m-3">Date</strong>
+                                <ul>
+                                    <button className={`dropdown-item ${date === 'All' ? 'active' : ''}`} onClick={() => handleDateChange("All")}>All</button>
+                                    <button className={`dropdown-item ${date === 'last7days' ? 'active' : ''}`} onClick={() => handleDateChange("last7days")}>Last 7 Days</button>
+                                    <button className={`dropdown-item ${date === 'last3month' ? 'active' : ''}`} onClick={() => handleDateChange("last3month")}>Last 3 Months</button>
+                                </ul>
+
                                 <div className="dropdown-divider"></div>
-                                <li className="drowdown-submenu">
-                                    <strong className="m-3">Chart Type</strong>
-                                    <ul className="drowdown-menu">
-                                        <button className="dropdown-item" onClick={() => handleChartTypeChange("Pie")}>Pie Chart</button>
-                                        <button className="dropdown-item" onClick={() => handleChartTypeChange("Line")}>Line Chart</button>
-                                        <button className="dropdown-item" onClick={() => handleChartTypeChange("Bar")}> Bar Chart</button>
-                                    </ul>
-                                </li>
+
+                                <strong className="m-3">Chart Type</strong>
+                                <ul>
+                                    <button className={`dropdown-item ${chartType === 'Pie' ? 'active' : ''}`} onClick={() => handleChartTypeChange("Pie")}>Pie Chart</button>
+                                    <button className={`dropdown-item ${chartType === 'Line' ? 'active' : ''}`} onClick={() => handleChartTypeChange("Line")}>Line Chart</button>
+                                    <button className={`dropdown-item ${chartType === 'Bar' ? 'active' : ''}`} onClick={() => handleChartTypeChange("Bar")}> Bar Chart</button>
+                                </ul>
+
                             </ul>
                         </div>
 

@@ -95,6 +95,7 @@ export default function Chart(props) {
                 <div className='card-body'>
                     <div ref={divRef} className="border-right border-left border-bottom border-light" />
                 </div>
+                Date = {date==="last7days" ? "Last 7 Days" : date==="last3month" ? "Last 3 Months" : date} / Chart Type = {chartType}
             </div>
 
         </div>

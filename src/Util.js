@@ -261,6 +261,5 @@ export const classNames = (...names) => {
             uniqueStringSet.add(arg);
         }
     });
-    console.log(Array.from(uniqueStringSet).join(" "));
     return Array.from(uniqueStringSet).join(" ");
 }

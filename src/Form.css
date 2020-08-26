@@ -176,3 +176,10 @@ textarea {overflow:auto;}
   ul.date-last3months .btn-last3month{
     background: turquoise !important;
   }
+
+  .form-report-dropdown-button{
+    background: white;
+    border: 1px gray solid;
+    color: #A9A9A9;
+    height: 30px;
+  }

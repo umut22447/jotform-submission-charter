@@ -246,3 +246,21 @@ export const getDefaultReport = (formId) => {
             return newReport;
         })
 }
+
+export const classNames = (...names) => {
+    const resultString = names.map(arg => {
+        if (typeof (arg) === "object") {
+            const objStrings = Object.entries(arg).map(([key, value]) => {
+                if (value) {
+                    return key;
+                }
+                return "";
+            }).filter(st => st !== "");
+            return objStrings.join(" ");
+        }
+        else {
+            return arg;
+        }
+    }).join(" ");
+    return resultString;
+}

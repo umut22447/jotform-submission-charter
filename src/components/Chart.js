@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { drawPieChart, drawLineChart, drawBarChart, fillDataArrayByDate, fillDataForLineChart } from '../Util'
+import { drawPieChart, drawLineChart, drawBarChart, fillDataArrayByDate, fillDataForLineChart, classNames } from '../Util'
 import { useReport } from '../contexts/ReportContext'
 
 
@@ -26,8 +26,6 @@ export default function Chart(props) {
             const dataArr = fillDataArrayByDate(field, date, submissions);
             drawBarChart(dataArr, divRef);
         }
-
-
 
     }, [field, divRef, title, chartType, date, submissions]);
 
@@ -73,18 +71,18 @@ export default function Chart(props) {
 
                                 <strong className="m-3">Date</strong>
                                 <ul>
-                                    <button className={`dropdown-item ${date === 'All' ? 'active' : ''}`} onClick={() => handleDateChange("All")}>All</button>
-                                    <button className={`dropdown-item ${date === 'last7days' ? 'active' : ''}`} onClick={() => handleDateChange("last7days")}>Last 7 Days</button>
-                                    <button className={`dropdown-item ${date === 'last3month' ? 'active' : ''}`} onClick={() => handleDateChange("last3month")}>Last 3 Months</button>
+                                    <button className={classNames("dropdown-item", { active: date === 'All' })} onClick={() => handleDateChange("All")}>All</button>
+                                    <button className={classNames("dropdown-item", { active: date === 'last7days' })} onClick={() => handleDateChange("last7days")}>Last 7 Days</button>
+                                    <button className={classNames("dropdown-item", { active: date === 'last3month' })} onClick={() => handleDateChange("last3month")}>Last 3 Months</button>
                                 </ul>
 
                                 <div className="dropdown-divider"></div>
 
                                 <strong className="m-3">Chart Type</strong>
                                 <ul>
-                                    <button className={`dropdown-item ${chartType === 'Pie' ? 'active' : ''}`} onClick={() => handleChartTypeChange("Pie")}>Pie Chart</button>
-                                    <button className={`dropdown-item ${chartType === 'Line' ? 'active' : ''}`} onClick={() => handleChartTypeChange("Line")}>Line Chart</button>
-                                    <button className={`dropdown-item ${chartType === 'Bar' ? 'active' : ''}`} onClick={() => handleChartTypeChange("Bar")}> Bar Chart</button>
+                                    <button className={classNames("dropdown-item", { active: chartType === 'Pie' })} onClick={() => handleChartTypeChange("Pie")}>Pie Chart</button>
+                                    <button className={classNames("dropdown-item", { active: chartType === 'Line' })} onClick={() => handleChartTypeChange("Line")}>Line Chart</button>
+                                    <button className={classNames("dropdown-item", { active: chartType === 'Bar' })} onClick={() => handleChartTypeChange("Bar")}> Bar Chart</button>
                                 </ul>
 
                             </ul>

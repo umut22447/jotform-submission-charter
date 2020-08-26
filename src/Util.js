@@ -248,19 +248,19 @@ export const getDefaultReport = (formId) => {
 }
 
 export const classNames = (...names) => {
-    const resultString = names.map(arg => {
+    const uniqueStringSet = new Set();
+    names.forEach(arg => {
         if (typeof (arg) === "object") {
-            const objStrings = Object.entries(arg).map(([key, value]) => {
+            Object.entries(arg).forEach(([key, value]) => {
                 if (value) {
-                    return key;
+                    uniqueStringSet.add(key);
                 }
-                return "";
-            }).filter(st => st !== "");
-            return objStrings.join(" ");
+            });
         }
         else {
-            return arg;
+            uniqueStringSet.add(arg);
         }
-    }).join(" ");
-    return resultString;
+    });
+    console.log(Array.from(uniqueStringSet).join(" "));
+    return Array.from(uniqueStringSet).join(" ");
 }

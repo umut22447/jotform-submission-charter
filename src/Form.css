@@ -178,8 +178,8 @@ textarea {overflow:auto;}
   }
 
   .form-report-dropdown-button{
-    background: white;
-    border: 1px gray solid;
+    border: 0px;
     color: #A9A9A9;
     height: 30px;
+    margin-right: 5px;
   }

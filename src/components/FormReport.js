@@ -57,10 +57,10 @@ export default function FormReport() {
                     <div className='d-flex flex-column w-100'>
                         <div className='d-flex flex-wrap w-100'>
                             <div className="dropdown">
-                                <button className="form-report-dropdown-button dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button className="form-report-dropdown-button dropdown-toggle bg-light" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <strong className="text-dark">{currentTitle}</strong>
                                 </button>
-                                <ul className="dropdown-menu dropdown-menu-center">
+                                <ul className="dropdown-menu">
                                     {reportForOptions.map(r => {
                                         return <button className="dropdown-item" onClick={() => {
                                             setField(r.field);
@@ -75,10 +75,10 @@ export default function FormReport() {
                             </div>
 
                             <div className={classNames("dropdown", { "d-none": field === "submission-count" })}>
-                                <button className="form-report-dropdown-button dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button className="form-report-dropdown-button dropdown-toggle bg-light" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <strong className="text-dark">{currentDate}</strong>
                                 </button>
-                                <ul className="dropdown-menu dropdown-menu-right">
+                                <ul className="dropdown-menu">
                                     <button className="dropdown-item" onClick={() => setCurrentDate("All")}>All</button>
                                     <button className="dropdown-item" onClick={() => setCurrentDate("Last 7 Days")}>Last 7 Days</button>
                                     <button className="dropdown-item" onClick={() => setCurrentDate("Last 3 Months")}>Last 3 Months</button>
@@ -86,10 +86,10 @@ export default function FormReport() {
                             </div>
 
                             <div className={classNames("dropdown", { "d-none": field === "submission-count" })}>
-                                <button className="form-report-dropdown-button dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button className="form-report-dropdown-button dropdown-toggle bg-light" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <strong className="text-dark">{currentChart}</strong>
                                 </button>
-                                <ul className="dropdown-menu dropdown-menu-right">
+                                <ul className="dropdown-menu">
                                     <button className="dropdown-item" onClick={() => setCurrentChart("Pie Chart")}>Pie Chart</button>
                                     <button className="dropdown-item" onClick={() => setCurrentChart("Line Chart")}>Line Chart</button>
                                     <button className="dropdown-item" onClick={() => setCurrentChart("Bar Chart")}>Bar Chart</button>

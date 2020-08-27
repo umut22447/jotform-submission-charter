@@ -257,7 +257,7 @@ export const drawCalendarChart = (dataArray, divRef) => {
         var chart = new global.google.visualization.Calendar(divRef.current);
 
         var options = {
-            width: 1080,
+            width: 1077,
             calendar: {
                 underYearSpace: 10, // Bottom padding for the year labels.
                 yearLabel: {

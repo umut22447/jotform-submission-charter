@@ -22,9 +22,12 @@ export default function Chart(props) {
             const dataArr = fillDataForLineChart(field, date, submissions);
             drawLineChart(dataArr, divRef);
         }
-        else {
+        else if(chartType === "Bar"){
             const dataArr = fillDataArrayByDate(field, date, submissions);
             drawBarChart(dataArr, divRef);
+        }
+        else{
+
         }
 
     }, [field, divRef, title, chartType, date, submissions]);
@@ -63,7 +66,7 @@ export default function Chart(props) {
                         {title}
                     </h5>
                     <div className="header-toolbar noexport">
-                        <div className="dropdown ">
+                        <div className={classNames("dropdown", {"d-none": chartType === "Calendar"})}>
                             <button className="chart-option-dropdown dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <strong className="text-dark">{date === "last7days" ? "Last 7 Days" : date === "last3month" ? "Last 3 Months" : "All Time"}</strong>
                             </button>

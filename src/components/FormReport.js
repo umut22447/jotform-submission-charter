@@ -26,6 +26,10 @@ export default function FormReport() {
             newReport[0].chartType = (currentChart === "Pie Chart" ? "Pie" : currentChart === "Line Chart" ? "Line" : "Bar");
             addNewReport(newReport[0]);     //Since I use 0 index of newReport is, filter returns an object array which length is always 1.
         }
+        else{
+            let submissionCountReport = { "field": "submission-count", "title": "Submission Count", "chartType": "Calendar", "date": "All" };
+            addNewReport(submissionCountReport);
+        }
     }
 
     const handleClick = () => {

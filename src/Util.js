@@ -5,18 +5,34 @@ import { getSubmissionQuestionsById } from './api'
 export const fillDataArray = (answers, field) => {
     var dataArr = [];
     answers.forEach(a => {
-        console.log(a[field].text + " sorusuna gelen cevap : " + a[field].answer);
+        //console.log(a[field].text + " sorusuna gelen cevap : " + a[field].answer);
         if (typeof (a[field].answer) === "object") {    //If the field is multiple choice box.
-            a[field].answer.forEach(a => {
-                let index = isAnswerExist(dataArr, a);
-                if (index !== -1) {
-                    dataArr[index][1]++;
-                }
-                else {
-                    let newData = [a, 1];
-                    dataArr.push(newData);
-                }
-            })
+            if (a[field].answer.paymentArray) {
+                const productArray = JSON.parse(a[field].answer.paymentArray).product;
+                productArray.forEach(p => {
+                    let index = isAnswerExist(dataArr, p);
+                    if (index !== -1) {
+                        dataArr[index][1]++;
+                    }
+                    else {
+                        let newData = [p, 1];
+                        dataArr.push(newData);
+                    }
+                })
+            }
+            else {
+                a[field].answer.forEach(a => {
+                    let index = isAnswerExist(dataArr, a);
+                    if (index !== -1) {
+                        dataArr[index][1]++;
+                    }
+                    else {
+                        let newData = [a, 1];
+                        dataArr.push(newData);
+                    }
+                })
+            }
+
         }
         else {                                             //If the field is not multiple choice box.
             let indexOfAnswer = isAnswerExist(dataArr, a[field].answer);
@@ -139,12 +155,24 @@ export const fillDataForLineChart = (field, date, submissions) => {
     filteredSubmissions.forEach(s => {
         const ans = s.answers[field].answer;
         if (typeof (ans) === "object") {
-            ans.forEach(a => {
-                const index = newRow.findIndex(r => r === a);
-                if (index === -1) {
-                    newRow.push(a);
-                }
-            })
+            if (ans.paymentArray) {
+                const productArray = JSON.parse(ans.paymentArray).product;
+                productArray.forEach(p => {
+                    const index = newRow.findIndex(r => r === p);
+                    if (index === -1) {
+                        newRow.push(p);
+                    }
+                })
+            }
+            else {
+                ans.forEach(a => {
+                    const index = newRow.findIndex(r => r === a);
+                    if (index === -1) {
+                        newRow.push(a);
+                    }
+                })
+            }
+
         }
         else {
             const index = newRow.findIndex(r => r === ans);
@@ -167,22 +195,43 @@ export const prepareDataForLineChart = (answers, field, submissionDate, firstRow
     const ans = answers[field].answer;
     let newDataRow = [];
     newDataRow.push(submissionDate);
-    if (typeof (ans) === "object") {                            //If the type of the answers is an array which means the answers is multi-choice
-        ans.forEach(a => {
-            for (let i = 1; i < firstRow.length; i++) {         //Since skipping the first element which is "Date", I did not use firstRow.forEach or etc.
-                if (firstRow[i] === a) {
+    if (typeof (ans) === "object") {
+        if (ans.paymentArray) {
+            const productArray = JSON.parse(ans.paymentArray).product;
+            productArray.forEach(p => {
+                for (let i = 1; i < firstRow.length; i++) {         //Since skipping the first element which is "Date", I did not use firstRow.forEach or etc.
+                    if (firstRow[i] === p) {
+                        if (newDataRow.length < firstRow.length) {
+                            newDataRow.push(1);
+                        }
+                        else {
+                            newDataRow[i]++;                //After first iteration newRow is created and length will equal to firstRow array.
+                        }
+                    }
                     if (newDataRow.length < firstRow.length) {
-                        newDataRow.push(1);
-                    }
-                    else {
-                        newDataRow[i]++;                //After first iteration newRow is created and length will equal to firstRow array.
+                        newDataRow.push(0);
                     }
                 }
-                if (newDataRow.length < firstRow.length) {
-                    newDataRow.push(0);
+            })
+        }                        //If the type of the answers is an array which means the answers is multi-choice
+        else {
+            ans.forEach(a => {
+                for (let i = 1; i < firstRow.length; i++) {         //Since skipping the first element which is "Date", I did not use firstRow.forEach or etc.
+                    if (firstRow[i] === a) {
+                        if (newDataRow.length < firstRow.length) {
+                            newDataRow.push(1);
+                        }
+                        else {
+                            newDataRow[i]++;                //After first iteration newRow is created and length will equal to firstRow array.
+                        }
+                    }
+                    if (newDataRow.length < firstRow.length) {
+                        newDataRow.push(0);
+                    }
                 }
-            }
-        })
+            })
+        }
+
     }
     else {
         for (let i = 1; i < firstRow.length; i++) {         //Since skipping the first element which is "Date", I did not use firstRow.forEach or etc.
@@ -233,6 +282,7 @@ export const getDefaultReport = (formId) => {
                     questions[q].type === 'control_textbox' ||
                     questions[q].type === 'control_textarea' ||
                     questions[q].type === 'control_number' ||
+                    questions[q].type === 'control_payment' ||
                     (questions[q].type === 'control_widget' && questions[q].cfname === "Beğen ve Beğenme Butonları")
             });
             const newReport = chartArr.map(field => {
@@ -261,13 +311,13 @@ export const drawCalendarChart = (dataArray, divRef) => {
             calendar: {
                 underYearSpace: 10, // Bottom padding for the year labels.
                 yearLabel: {
-                  fontName: 'Times-Roman',
-                  fontSize: 32,
-                  color: '#1A8763',
-                  bold: true,
-                  italic: true
+                    fontName: 'Times-Roman',
+                    fontSize: 32,
+                    color: '#1A8763',
+                    bold: true,
+                    italic: true
                 }
-              }
+            }
         };
 
         chart.draw(dataTable, options);

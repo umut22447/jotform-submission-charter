@@ -160,7 +160,6 @@ export const fillDataForLineChart = (field, date, submissions) => {
         dataArray.push(newDataRow);
     })
     dataArray = modifyDataArray(dataArray);
-    console.log(dataArray);
     return dataArray;
 }
 
@@ -176,7 +175,7 @@ export const prepareDataForLineChart = (answers, field, submissionDate, firstRow
                         newDataRow.push(1);
                     }
                     else {
-                        newDataRow[i]++;
+                        newDataRow[i]++;                //After first iteration newRow is created and length will equal to firstRow array.
                     }
                 }
                 if (newDataRow.length < firstRow.length) {
@@ -194,14 +193,12 @@ export const prepareDataForLineChart = (answers, field, submissionDate, firstRow
         }
         newDataRow.pop();
     }
-
-
     return newDataRow;
 }
 
 export const modifyDataArray = (dataArray) => {
     for (let i = dataArray.length - 1; i > 0; i--) {
-        if (dataArray[i][0] === dataArray[i - 1][0]) {
+        if (dataArray[i][0].toString() === dataArray[i - 1][0].toString()) {
             for (let j = 1; j < dataArray[0].length; j++) {
                 dataArray[i - 1][j] += dataArray[i][j];
             }
@@ -245,6 +242,48 @@ export const getDefaultReport = (formId) => {
             })
             return newReport;
         })
+}
+
+export const drawCalendarChart = (dataArray, divRef) => {
+    global.google.charts.load("current", { packages: ["calendar"] });
+    global.google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var dataTable = new global.google.visualization.DataTable();
+        dataTable.addColumn({ type: 'date', id: 'Date' });
+        dataTable.addColumn({ type: 'number', id: 'Count' });
+        dataTable.addRows(dataArray);
+
+        var chart = new global.google.visualization.Calendar(divRef.current);
+
+        var options = {
+            width: 1080,
+            calendar: {
+                underYearSpace: 10, // Bottom padding for the year labels.
+                yearLabel: {
+                  fontName: 'Times-Roman',
+                  fontSize: 32,
+                  color: '#1A8763',
+                  bold: true,
+                  italic: true
+                }
+              }
+        };
+
+        chart.draw(dataTable, options);
+    }
+}
+
+export const fillDataArrayForCalendar = (submissions) => {
+    let dataArray = [];
+    submissions.forEach(sub => {
+        const date = new Date(sub.created_at);
+        const newRow = [(new Date(date.getFullYear(), date.getMonth(), date.getDate())), 1];
+        dataArray.push(newRow);
+    })
+    console.log(dataArray)
+    console.log(modifyDataArray(dataArray));
+    return modifyDataArray(dataArray);
 }
 
 export const classNames = (...names) => {

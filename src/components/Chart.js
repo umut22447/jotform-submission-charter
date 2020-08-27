@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { drawPieChart, drawLineChart, drawBarChart, fillDataArrayByDate, fillDataForLineChart, classNames } from '../Util'
+import { drawPieChart, drawLineChart, drawBarChart, drawCalendarChart, fillDataArrayByDate, fillDataForLineChart, fillDataArrayForCalendar, classNames } from '../Util'
 import { useReport } from '../contexts/ReportContext'
 
 
@@ -27,7 +27,8 @@ export default function Chart(props) {
             drawBarChart(dataArr, divRef);
         }
         else{
-
+            const dataArr = fillDataArrayForCalendar(submissions);
+            drawCalendarChart(dataArr, divRef);
         }
 
     }, [field, divRef, title, chartType, date, submissions]);

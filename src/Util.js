@@ -317,6 +317,9 @@ export const drawCalendarChart = (dataArray, divRef) => {
                     bold: true,
                     italic: true
                 }
+            },
+            colorAxis: {
+                colors: ['#90EE90', '#006400']
             }
         };
 

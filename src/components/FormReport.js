@@ -14,6 +14,8 @@ export default function FormReport() {
     const [currentChart, setCurrentChart] = useState("Pie Chart");
     const [field, setField] = useState("submission-count");
     const [isProappAvailable, setIsProappAvailable] = useState(false);  //To add Product-Appointment section to options menu in new chart add section.
+    const [productField, setProductField] = useState();
+    const [appointmentField, setAppointmentField] = useState();
     const divRef = useRef();
 
     useEffect(() => {
@@ -23,6 +25,15 @@ export default function FormReport() {
         let includeProduct = typeArray.includes("control_payment");
         let includeAppointment = typeArray.includes("control_appointment");
         setIsProappAvailable(includeProduct && includeAppointment);
+
+        Object.keys(questions).forEach(qField => {
+            if(questions[qField].type === "control_payment"){
+                setProductField(qField);
+            }
+            if(questions[qField].type === "control_appointment"){
+                setAppointmentField(qField);
+            }
+        });
 
     }, [form, questions]);
 
@@ -65,7 +76,7 @@ export default function FormReport() {
 
             <div className='d-flex flex-wrap mw-1000'>
                 {report.map((r, index) => {
-                    return (<Chart report={r} index={index} />)
+                    return (<Chart report={r} index={index} productField={productField} appointmentField={appointmentField} />)
                 })}
 
                 <div className='new-chart-add-root-div noexport'>

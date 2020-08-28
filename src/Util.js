@@ -331,8 +331,16 @@ export const fillDataArrayForCalendar = (submissions) => {
         const newRow = [(new Date(date.getFullYear(), date.getMonth(), date.getDate())), 1];
         dataArray.push(newRow);
     })
-    console.log(dataArray)
-    console.log(modifyDataArray(dataArray));
+    return modifyDataArray(dataArray);
+}
+
+export const fillProductAppointmentData = (productField, appointmentField, submissions) => {
+    const dataArray = submissions.map(s => {
+        const appointment = (s.answers[appointmentField].answer.date).split(" ");
+        const appointmentDate = appointment[0];
+        const totalProduct = JSON.parse(s.answers[productField].answer.paymentArray).total;
+        return [new Date(appointmentDate), parseFloat(totalProduct)];
+    });
     return modifyDataArray(dataArray);
 }
 
@@ -352,3 +360,4 @@ export const classNames = (...names) => {
     });
     return Array.from(uniqueStringSet).join(" ");
 }
+

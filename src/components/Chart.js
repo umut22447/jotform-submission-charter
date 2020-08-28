@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react'
-import { drawPieChart, drawLineChart, drawBarChart, drawCalendarChart, fillDataArrayByDate, fillDataForLineChart, fillDataArrayForCalendar, classNames } from '../Util'
+import { drawPieChart, drawLineChart, drawBarChart, 
+    drawCalendarChart, fillDataArrayByDate, fillDataForLineChart, 
+    fillDataArrayForCalendar, fillProductAppointmentData, classNames } from '../Util'
 import { useReport } from '../contexts/ReportContext'
 
 
@@ -9,6 +11,7 @@ export default function Chart(props) {
     const { deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, swapReportElements, onDragStart, reportTitleChange } = useReport();
     const { field, title, chartType, date } = props.report;
     const reportIndex = props.index;
+    const {productField, appointmentField} = props
     const handleClick = (event) => {
         deleteChartByIndex(reportIndex);
     }
@@ -31,10 +34,11 @@ export default function Chart(props) {
             drawCalendarChart(dataArr, divRef);
         }
         else{
-            
+            const dataArr = fillProductAppointmentData(productField, appointmentField, submissions);
+            drawCalendarChart(dataArr, divRef);
         }
 
-    }, [field, divRef, title, chartType, date, submissions]);
+    }, [field, divRef, title, chartType, date, submissions, productField, appointmentField]);
 
     const handleChartTypeChange = (chartType) => {
         changeChartTypeByField(reportIndex, chartType);

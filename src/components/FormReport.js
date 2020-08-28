@@ -20,15 +20,19 @@ export default function FormReport() {
     }, [form]);
 
     const handleAddClick = () => {
-        if (field !== "submission-count") {
+        if (field === "submission-count") {
+            let submissionCountReport = { "field": "submission-count", "title": "Submission Count", "chartType": "Calendar", "date": "All" };
+            addNewReport(submissionCountReport);
+        }
+        else if (field === "product-appointment") {
+            let productAppointmentReport = { "field": "product-appointment", "title": "Product-Appointment", "chartType": "ProductAppointment", "date": "All" };
+            addNewReport(productAppointmentReport);
+        }
+        else {
             let newReport = reportForOptions.filter(r => r.field === field);
             newReport[0].date = (currentDate === "Last 7 Days" ? "last7days" : currentDate === "Last 3 Months" ? "last3month" : "All");
             newReport[0].chartType = (currentChart === "Pie Chart" ? "Pie" : currentChart === "Line Chart" ? "Line" : "Bar");
             addNewReport(newReport[0]);     //Since I use 0 index of newReport is, filter returns an object array which length is always 1.
-        }
-        else{
-            let submissionCountReport = { "field": "submission-count", "title": "Submission Count", "chartType": "Calendar", "date": "All" };
-            addNewReport(submissionCountReport);
         }
     }
 
@@ -72,13 +76,18 @@ export default function FormReport() {
                                         }}>{r.title}</button>
                                     })}
                                     <button className="dropdown-item" onClick={() => {
+                                        setField("product-appointment");
+                                        setCurrentTitle("ProductAppointment");
+                                    }
+                                    }>Product-Appointment Chart</button>
+                                    <button className="dropdown-item" onClick={() => {
                                         setField("submission-count");
-                                        setCurrentTitle("Submission Count")
+                                        setCurrentTitle("Submission Count");
                                     }}>Submission Count</button>
                                 </ul>
                             </div>
 
-                            <div className={classNames("dropdown", { "d-none": field === "submission-count" })}>
+                            <div className={classNames("dropdown", { "d-none": (field === "submission-count" || field === "product-appointment") })}>
                                 <button className="form-report-dropdown-button dropdown-toggle bg-light" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <strong className="text-dark">{currentDate}</strong>
                                 </button>
@@ -89,7 +98,7 @@ export default function FormReport() {
                                 </ul>
                             </div>
 
-                            <div className={classNames("dropdown", { "d-none": field === "submission-count" })}>
+                            <div className={classNames("dropdown", { "d-none": (field === "submission-count" || field === "product-appointment") })}>
                                 <button className="form-report-dropdown-button dropdown-toggle bg-light" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <strong className="text-dark">{currentChart}</strong>
                                 </button>

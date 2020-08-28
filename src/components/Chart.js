@@ -26,9 +26,12 @@ export default function Chart(props) {
             const dataArr = fillDataArrayByDate(field, date, submissions);
             drawBarChart(dataArr, divRef);
         }
-        else{
+        else if(chartType === "Calendar"){
             const dataArr = fillDataArrayForCalendar(submissions);
             drawCalendarChart(dataArr, divRef);
+        }
+        else{
+            
         }
 
     }, [field, divRef, title, chartType, date, submissions]);

@@ -195,8 +195,8 @@ export const prepareDataForLineChart = (answers, field, submissionDate, firstRow
     const ans = answers[field].answer;
     let newDataRow = [];
     newDataRow.push(submissionDate);
-    if (typeof (ans) === "object") {
-        if (ans.paymentArray) {
+    if (typeof (ans) === "object") {         //If the type of the answers is an array which means the answers is multi-choice
+        if (ans.paymentArray) {               //If the type is the answers is about product field.
             const productArray = JSON.parse(ans.paymentArray).product;
             productArray.forEach(p => {
                 for (let i = 1; i < firstRow.length; i++) {         //Since skipping the first element which is "Date", I did not use firstRow.forEach or etc.
@@ -213,7 +213,7 @@ export const prepareDataForLineChart = (answers, field, submissionDate, firstRow
                     }
                 }
             })
-        }                        //If the type of the answers is an array which means the answers is multi-choice
+        }
         else {
             ans.forEach(a => {
                 for (let i = 1; i < firstRow.length; i++) {         //Since skipping the first element which is "Date", I did not use firstRow.forEach or etc.

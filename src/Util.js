@@ -320,7 +320,11 @@ export const drawCalendarChart = (dataArray, divRef) => {
             },
             colorAxis: {
                 colors: ['#90EE90', '#006400']
-            }
+            },
+            noDataPattern: {
+                backgroundColor: '#f0f0f0',
+                color: '#f0f0f0'
+              }
         };
 
         chart.draw(dataTable, options);

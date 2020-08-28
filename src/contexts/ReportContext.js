@@ -1,5 +1,5 @@
 import React, { useState, createContext, useContext, useEffect } from 'react'
-import { getSubmissionById, getFormById } from '../api'
+import { getSubmissionById, getFormById, getSubmissionQuestionsById } from '../api'
 import { getReportByFormId } from '../Util'
 import localforage from 'localforage'
 
@@ -10,13 +10,14 @@ export const ReportProvider = ({ children, formId }) => {
     const [answers, setAnswers] = useState([]);
     const [report, _setReport] = useState([]);   //Represents chart enabled fields
     const [submissions, setSubmissions] = useState([]);
+    const [questions, setQuestions] = useState([]);
     const [dragIndex, setDragIndex] = useState(0);
     const setReport = newReport => {
         _setReport(newReport);
         localforage.setItem(String(form.id), newReport);
     }
 
-    const reportTitleChange = (index,value) => {
+    const reportTitleChange = (index, value) => {
         const newReport = [...report];
         newReport[index].title = value;
         setReport(newReport);
@@ -40,7 +41,7 @@ export const ReportProvider = ({ children, formId }) => {
     }
 
     const deleteChartByIndex = (index) => {
-        const newReport = report.filter( (r, reportIndex) => reportIndex !== index);    //If the given index is not the searching element then keep it in the array.
+        const newReport = report.filter((r, reportIndex) => reportIndex !== index);    //If the given index is not the searching element then keep it in the array.
         setReport(newReport);
     }
 
@@ -57,7 +58,7 @@ export const ReportProvider = ({ children, formId }) => {
     }
 
     const changeDateByField = (index, date) => {
-        const newReport = report.map((r,reportIndex) => {
+        const newReport = report.map((r, reportIndex) => {
             if (index === reportIndex) {
                 return { ...r, date }
             }
@@ -83,13 +84,18 @@ export const ReportProvider = ({ children, formId }) => {
 
         getReportByFormId(formId).then(_setReport);
 
+        getSubmissionQuestionsById(formId)
+            .then(setQuestions);
+
     }, [formId])
 
     return (
-        <ReportContext.Provider value={{ report, answers, form, deleteChartByIndex, 
-        changeChartTypeByField, changeDateByField, 
-        submissions, addNewReport, onDragStart, 
-        swapReportElements, reportTitleChange }}>
+        <ReportContext.Provider value={{
+            report, answers, form, deleteChartByIndex,
+            changeChartTypeByField, changeDateByField,
+            submissions, addNewReport, onDragStart,
+            swapReportElements, reportTitleChange, questions
+        }}>
             {children}
         </ReportContext.Provider>
     )

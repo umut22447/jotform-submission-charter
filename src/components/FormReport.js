@@ -7,17 +7,24 @@ import download from 'downloadjs'
 
 export default function FormReport() {
 
-    const { form, report, addNewReport } = useReport();
+    const { form, report, addNewReport, questions } = useReport();
     const [reportForOptions, setReportForOptions] = useState([]);
     const [currentTitle, setCurrentTitle] = useState("Submission Count");
     const [currentDate, setCurrentDate] = useState("All");
     const [currentChart, setCurrentChart] = useState("Pie Chart");
     const [field, setField] = useState("submission-count");
+    const [isProappAvailable, setIsProappAvailable] = useState(false);  //To add Product-Appointment section to options menu in new chart add section.
     const divRef = useRef();
 
     useEffect(() => {
         getDefaultReport(form.id).then(setReportForOptions);
-    }, [form]);
+
+        const typeArray = Object.values(questions).map(q => q.type);
+        let includeProduct = typeArray.includes("control_payment");
+        let includeAppointment = typeArray.includes("control_appointment");
+        setIsProappAvailable(includeProduct && includeAppointment);
+
+    }, [form, questions]);
 
     const handleAddClick = () => {
         if (field === "submission-count") {
@@ -75,7 +82,7 @@ export default function FormReport() {
                                             setCurrentTitle(r.title);
                                         }}>{r.title}</button>
                                     })}
-                                    <button className="dropdown-item" onClick={() => {
+                                    <button className={classNames("dropdown-item", {"d-none": !isProappAvailable})} onClick={() => {
                                         setField("product-appointment");
                                         setCurrentTitle("ProductAppointment");
                                     }

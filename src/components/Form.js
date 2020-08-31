@@ -8,7 +8,7 @@ function Form(props) {
 
     return (
         <Link to={reportFormId} className="form-list-element">
-            <li className='list-group-item bg-light m-3 border border-gray rounded'>
+            <li className='list-group-item bg-light m-3 border border-gray rounded form-list-item'>
                 <div className='form-group'>
                     <div>
                         {

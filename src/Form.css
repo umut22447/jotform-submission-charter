@@ -43,7 +43,7 @@ textarea {overflow:auto;}
 }
 
 .form-list-element:hover{
-    color: gray;
+    color: black;
     text-decoration: none;
 }
 
@@ -185,4 +185,12 @@ textarea {overflow:auto;}
 
   .min-h-500{
       min-height: 500px !important;
+  }
+
+  .form-list-item{
+      transition: border .2s;
+  }
+
+  .form-list-item:hover{
+      border-color: #0000AB !important;
   }

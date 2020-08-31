@@ -194,3 +194,7 @@ textarea {overflow:auto;}
   .form-list-item:hover{
       border-color: #0000AB !important;
   }
+
+  .exit-dropdown{
+      z-index: 1021 !important;
+  }

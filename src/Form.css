@@ -83,14 +83,13 @@ textarea {overflow:auto;}
      flex-flow: column;
  }
 
- .mw-1000{
+ .mw-1735{
      max-width: 1735px !important;
  }
 
  .mw-500{
     max-width: 300px !important;
  }
-
 
  .card-header{
     display: flex;
@@ -182,4 +181,8 @@ textarea {overflow:auto;}
     color: #A9A9A9;
     height: 30px;
     margin-right: 5px;
+  }
+
+  .min-h-500{
+      min-height: 500px !important;
   }

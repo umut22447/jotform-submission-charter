@@ -26,7 +26,7 @@ export default function FormReport() {
         let includeAppointment = typeArray.includes("control_appointment");
         setIsProappAvailable(includeProduct && includeAppointment);
 
-        Object.keys(questions).forEach(qField => {
+        Object.keys(questions).forEach(qField => {          //Determine the product and appointment field and send it to chart as prop.
             if(questions[qField].type === "control_payment"){
                 setProductField(qField);
             }
@@ -74,7 +74,7 @@ export default function FormReport() {
                 </svg>Download Report as PNG</button>
             </div>
 
-            <div className='d-flex flex-wrap mw-1000'>
+            <div className='d-flex flex-wrap mw-1735'>
                 {report.map((r, index) => {
                     return (<Chart report={r} index={index} productField={productField} appointmentField={appointmentField} />)
                 })}

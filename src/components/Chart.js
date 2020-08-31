@@ -11,7 +11,7 @@ export default function Chart(props) {
     const { deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, swapReportElements, onDragStart, reportTitleChange } = useReport();
     const { field, title, chartType, date } = props.report;
     const reportIndex = props.index;
-    const {productField, appointmentField} = props
+    const {productField, appointmentField} = props      //Get product and appointment field from prop if exists.
     const handleClick = (event) => {
         deleteChartByIndex(reportIndex);
     }
@@ -68,13 +68,13 @@ export default function Chart(props) {
 
     return (
         <div className='d-flex flex-column m-3' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
-            <div className="card">
+            <div className="card min-h-500">
                 <div className="card-header bg-white">
-                    <h5 className="card-header-title mr-auto mw-500" contentEditable="true" onBlur={handleHeaderChange}>
+                    <h5 className="card-header-title mr-auto mw-300" contentEditable="true" onBlur={handleHeaderChange}>
                         {title}
                     </h5>
                     <div className="header-toolbar noexport">
-                        <div className={classNames("dropdown", {"d-none": chartType === "Calendar"})}>
+                        <div className={classNames("dropdown", {"d-none": (chartType === "Calendar" || chartType === "ProductAppointment") })}>
                             <button className="chart-option-dropdown dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <strong className="text-dark">{date === "last7days" ? "Last 7 Days" : date === "last3month" ? "Last 3 Months" : "All Time"}</strong>
                             </button>

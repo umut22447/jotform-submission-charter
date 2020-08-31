@@ -21,7 +21,7 @@ ReactDOM.render(
   <AuthProvider>
     <FormsProvider>
       <Router>
-        <Navbar bg="dark" variant="dark" sticky='top'>
+        <Navbar bg="dark" variant="dark">
           <Navbar.Brand>
             <img
               src={logo}
@@ -39,7 +39,7 @@ ReactDOM.render(
         </Navbar>
         <Switch>
           <Route exact path="/">
-            <div>
+            <div className="sticky-top bg-white">
               <h2 className='d-flex justify-content-center'>Select a Form and See the Charter</h2>
               <SearchBox />
             </div>

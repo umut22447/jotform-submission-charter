@@ -256,6 +256,21 @@ export const modifyDataArray = (dataArray) => {
     return dataArray;
 }
 
+export const editDataArray = (dataArray) => {
+    for (let i = 0; i < dataArray.length; i++) {
+        for (let j = i + 1; j < dataArray.length; j++) {
+            if (dataArray[i][0].toString() === dataArray[j][0].toString()) {
+                dataArray[i][1] += dataArray[j][1];
+                dataArray.splice(j, 1);
+                j--;    //When splice element and next element index change.
+            }
+        }
+    }
+    console.log("APPPRO");
+    console.log(dataArray);
+    return dataArray;
+}
+
 export const getReportByFormId = async (formId) => {
     let report = await getReportFromDb(formId);
     if (report) {
@@ -348,21 +363,30 @@ export const fillProductAppointmentData = (productField, appointmentField, submi
         const totalProduct = JSON.parse(s.answers[productField].answer.paymentArray).total;
         return [new Date(appointmentDate), parseFloat(totalProduct)];
     });
-    return modifyDataArray(dataArray);
+    return editDataArray(dataArray);
 }
 
-export const fillDataArrayForLocation = (submissions, date) => {
+export const fillDataArrayForLocation = async (submissions, date) => {
     const dateCondition = getConditionDate(date);
     const filteredSubmissions = submissions.filter(s => new Date(s.created_at) >= dateCondition);
-    const dataArr = filteredSubmissions.map(s => {
-        const location = getLocationByIP(s.ip);
-        const city = location.city;
-        const country = location.country;
-        const cityCountry = city + "/" + country;
-        return [cityCountry, 1];
-    });
-    console.log(modifyDataArray(dataArr));
-    return modifyDataArray(dataArr);
+    const dataArr = await Promise.all(filteredSubmissions.map(s => {
+        return getLocationByIP(s.ip)
+            .then(location => {
+                const city = location.city;
+                const country = location.country;
+                const cityCountry = city + "/" + country;
+                return [cityCountry, 1];
+            });
+    }));
+    return editDataArray(dataArr);
+}
+
+
+export const drawLocationChart = async (submissions, date, divRef) => {
+    const dataArr = await fillDataArrayForLocation(submissions, date);
+    console.log("DATA ARR");
+    console.log(dataArr);
+    drawPieChart(dataArr, divRef);
 }
 
 export const classNames = (...names) => {

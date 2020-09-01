@@ -1,7 +1,9 @@
 import React, { useRef, useEffect } from 'react'
-import { drawPieChart, drawLineChart, drawBarChart, 
-    drawCalendarChart, fillDataArrayByDate, fillDataForLineChart, 
-    fillDataArrayForCalendar, fillProductAppointmentData, classNames, fillDataArrayForLocation } from '../Util'
+import {
+    drawPieChart, drawLineChart, drawBarChart,
+    drawCalendarChart, fillDataArrayByDate, fillDataForLineChart,
+    fillDataArrayForCalendar, fillProductAppointmentData, classNames, drawLocationChart
+} from '../Util'
 import { useReport } from '../contexts/ReportContext'
 
 
@@ -11,7 +13,7 @@ export default function Chart(props) {
     const { deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, swapReportElements, onDragStart, reportTitleChange } = useReport();
     const { field, title, chartType, date } = props.report;
     const reportIndex = props.index;
-    const {productField, appointmentField} = props      //Get product and appointment field from prop if exists.
+    const { productField, appointmentField } = props      //Get product and appointment field from prop if exists.
     const handleClick = (event) => {
         deleteChartByIndex(reportIndex);
     }
@@ -25,19 +27,18 @@ export default function Chart(props) {
             const dataArr = fillDataForLineChart(field, date, submissions);
             drawLineChart(dataArr, divRef);
         }
-        else if(chartType === "Bar"){
+        else if (chartType === "Bar") {
             const dataArr = fillDataArrayByDate(field, date, submissions);
             drawBarChart(dataArr, divRef);
         }
-        else if(chartType === "Calendar"){
+        else if (chartType === "Calendar") {
             const dataArr = fillDataArrayForCalendar(submissions);
             drawCalendarChart(dataArr, divRef);
         }
-        else if(chartType === "Location"){
-            const dataArr = fillDataArrayForLocation(submissions, date);
-            drawPieChart(dataArr, divRef);
+        else if (chartType === "Location") {
+            drawLocationChart(submissions, date, divRef);
         }
-        else{
+        else {
             const dataArr = fillProductAppointmentData(productField, appointmentField, submissions);
             drawCalendarChart(dataArr, divRef);
         }
@@ -78,7 +79,7 @@ export default function Chart(props) {
                         {title}
                     </h5>
                     <div className="header-toolbar noexport">
-                        <div className={classNames("dropdown", {"d-none": (chartType === "Calendar" || chartType === "ProductAppointment") })}>
+                        <div className={classNames("dropdown", { "d-none": (chartType === "Calendar" || chartType === "ProductAppointment") })}>
                             <button className="chart-option-dropdown dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <strong className="text-dark">{date === "last7days" ? "Last 7 Days" : date === "last3month" ? "Last 3 Months" : "All Time"}</strong>
                             </button>

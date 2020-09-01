@@ -1,5 +1,5 @@
 import localforage from 'localforage'
-import { getSubmissionQuestionsById } from './api'
+import { getSubmissionQuestionsById, getLocationByIP } from './api'
 
 
 export const fillDataArray = (answers, field) => {
@@ -53,7 +53,6 @@ export const fillDataArray = (answers, field) => {
 }
 
 export const fillDataArrayByDate = (field, date, submissions) => {
-    console.log(submissions);
     const dateCondition = getConditionDate(date);
     const answers = submissions.map(s => {
         const submissionDate = new Date(s.created_at);
@@ -325,7 +324,7 @@ export const drawCalendarChart = (dataArray, divRef) => {
             noDataPattern: {
                 backgroundColor: '#f0f0f0',
                 color: '#f0f0f0'
-              }
+            }
         };
 
         chart.draw(dataTable, options);
@@ -350,6 +349,20 @@ export const fillProductAppointmentData = (productField, appointmentField, submi
         return [new Date(appointmentDate), parseFloat(totalProduct)];
     });
     return modifyDataArray(dataArray);
+}
+
+export const fillDataArrayForLocation = (submissions, date) => {
+    const dateCondition = getConditionDate(date);
+    const filteredSubmissions = submissions.filter(s => new Date(s.created_at) >= dateCondition);
+    const dataArr = filteredSubmissions.map(s => {
+        const location = getLocationByIP(s.ip);
+        const city = location.city;
+        const country = location.country;
+        const cityCountry = city + "/" + country;
+        return [cityCountry, 1];
+    });
+    console.log(modifyDataArray(dataArr));
+    return modifyDataArray(dataArr);
 }
 
 export const classNames = (...names) => {

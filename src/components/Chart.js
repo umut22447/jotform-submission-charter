@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { drawPieChart, drawLineChart, drawBarChart, 
     drawCalendarChart, fillDataArrayByDate, fillDataForLineChart, 
-    fillDataArrayForCalendar, fillProductAppointmentData, classNames } from '../Util'
+    fillDataArrayForCalendar, fillProductAppointmentData, classNames, fillDataArrayForLocation } from '../Util'
 import { useReport } from '../contexts/ReportContext'
 
 
@@ -32,6 +32,10 @@ export default function Chart(props) {
         else if(chartType === "Calendar"){
             const dataArr = fillDataArrayForCalendar(submissions);
             drawCalendarChart(dataArr, divRef);
+        }
+        else if(chartType === "Location"){
+            const dataArr = fillDataArrayForLocation(submissions, date);
+            drawPieChart(dataArr, divRef);
         }
         else{
             const dataArr = fillProductAppointmentData(productField, appointmentField, submissions);

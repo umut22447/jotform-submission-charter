@@ -12,7 +12,7 @@ export default function FormReport() {
     const [currentTitle, setCurrentTitle] = useState("Submission Count");
     const [currentDate, setCurrentDate] = useState("All");
     const [currentChart, setCurrentChart] = useState("Pie Chart");
-    const [field, setField] = useState("submission-count");
+    const [field, setField] = useState("submission-count");         //Add Field
     const [isProappAvailable, setIsProappAvailable] = useState(false);  //To add Product-Appointment section to options menu in new chart add section.
     const [productField, setProductField] = useState();
     const [appointmentField, setAppointmentField] = useState();
@@ -27,10 +27,10 @@ export default function FormReport() {
         setIsProappAvailable(includeProduct && includeAppointment);
 
         Object.keys(questions).forEach(qField => {          //Determine the product and appointment field and send it to chart as prop.
-            if(questions[qField].type === "control_payment"){
+            if (questions[qField].type === "control_payment") {
                 setProductField(qField);
             }
-            if(questions[qField].type === "control_appointment"){
+            if (questions[qField].type === "control_appointment") {
                 setAppointmentField(qField);
             }
         });
@@ -45,6 +45,10 @@ export default function FormReport() {
         else if (field === "product-appointment") {
             let productAppointmentReport = { "field": "product-appointment", "title": "Product-Appointment", "chartType": "ProductAppointment", "date": "All" };
             addNewReport(productAppointmentReport);
+        }
+        else if (field === "location-count"){
+            let locationCountReport = {"field": "location-count", "title": "Location Count", "chartType": "Location", "date": currentDate === "Last 7 Days" ? "last7days" : currentDate === "Last 3 Months" ? "last3month" : "All"};
+            addNewReport(locationCountReport);
         }
         else {
             let newReport = reportForOptions.filter(r => r.field === field);
@@ -93,11 +97,15 @@ export default function FormReport() {
                                             setCurrentTitle(r.title);
                                         }}>{r.title}</button>
                                     })}
-                                    <button className={classNames("dropdown-item", {"d-none": !isProappAvailable})} onClick={() => {
+                                    <button className={classNames("dropdown-item", { "d-none": !isProappAvailable })} onClick={() => {
                                         setField("product-appointment");
                                         setCurrentTitle("ProductAppointment");
                                     }
                                     }>Product-Appointment Chart</button>
+                                    <button className="dropdown-item" onClick={() => {
+                                        setField("location-count");
+                                        setCurrentTitle("Location Count");
+                                    }}>Location Count</button>
                                     <button className="dropdown-item" onClick={() => {
                                         setField("submission-count");
                                         setCurrentTitle("Submission Count");
@@ -116,7 +124,7 @@ export default function FormReport() {
                                 </ul>
                             </div>
 
-                            <div className={classNames("dropdown", { "d-none": (field === "submission-count" || field === "product-appointment") })}>
+                            <div className={classNames("dropdown", { "d-none": (field === "submission-count" || field === "product-appointment" || field === "location-count") })}>
                                 <button className="form-report-dropdown-button dropdown-toggle bg-light" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <strong className="text-dark">{currentChart}</strong>
                                 </button>

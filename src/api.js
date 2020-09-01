@@ -18,18 +18,22 @@ export const getForms = () => {
 
 export const getFormById = (formId) => {
     return fetch(`https://api.jotform.com/form/${formId}?apikey=${api.key}`)
-    .then(response => response.json())
-    .then(response => response.content)
+        .then(response => response.json())
+        .then(response => response.content)
 }
 
 export const getSubmissionById = (formId) => {
     return fetch(`https://api.jotform.com/form/${formId}/submissions?apikey=${api.key}&orderby=created_at,asc&limit=1000`)
-    .then(response => response.json())
-    .then(r => r.content)
+        .then(response => response.json())
+        .then(r => r.content)
 }
 
 export const getSubmissionQuestionsById = (formId) => {
     return fetch(`https://api.jotform.com/form/${formId}/questions?apikey=${api.key}`)
-    .then(response => response.json())
-    .then(r => r.content)
+        .then(response => response.json())
+        .then(r => r.content)
+}
+
+export const getLocationByIP = (ipAddress) => {
+    return fetch(`http://ip-api.com/json/${ipAddress}`);
 }

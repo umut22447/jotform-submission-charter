@@ -35,6 +35,6 @@ export const getSubmissionQuestionsById = (formId) => {
 }
 
 export const getLocationByIP = (ipAddress) => {
-    return fetch(`http://ip-api.com/json/${ipAddress}`)
+    return fetch(`https://ipapi.co/${ipAddress}/json/`)
         .then(response => response.json());
 }

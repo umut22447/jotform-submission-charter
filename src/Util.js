@@ -266,8 +266,6 @@ export const editDataArray = (dataArray) => {
             }
         }
     }
-    console.log("APPPRO");
-    console.log(dataArray);
     return dataArray;
 }
 
@@ -369,23 +367,21 @@ export const fillProductAppointmentData = (productField, appointmentField, submi
 export const fillDataArrayForLocation = async (submissions, date) => {
     const dateCondition = getConditionDate(date);
     const filteredSubmissions = submissions.filter(s => new Date(s.created_at) >= dateCondition);
-    const dataArr = await Promise.all(filteredSubmissions.map(s => {
-        return getLocationByIP(s.ip)
-            .then(location => {
-                const city = location.city;
-                const country = location.country;
-                const cityCountry = city + "/" + country;
-                return [cityCountry, 1];
-            });
-    }));
-    return editDataArray(dataArr);
+    let dataArr = filteredSubmissions.map(s => [s.ip, 1]);
+    dataArr = editDataArray(dataArr);
+    return editDataArray(await Promise.all(dataArr.map(a => {
+        return getLocationByIP(a[0])
+        .then(location => {
+            const city = location.city;
+            const country = location.country;
+            const cityCountry = city + "/" + country;
+            return [cityCountry, a[1]];
+        });
+    })));
 }
-
 
 export const drawLocationChart = async (submissions, date, divRef) => {
     const dataArr = await fillDataArrayForLocation(submissions, date);
-    console.log("DATA ARR");
-    console.log(dataArr);
     drawPieChart(dataArr, divRef);
 }
 

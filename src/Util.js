@@ -368,7 +368,8 @@ export const fillDataArrayForLocation = async (submissions, date) => {
     const dateCondition = getConditionDate(date);
     const filteredSubmissions = submissions.filter(s => new Date(s.created_at) >= dateCondition);
     let dataArr = filteredSubmissions.map(s => [s.ip, 1]);
-    dataArr = editDataArray(dataArr);
+    editDataArray(dataArr);
+    console.log(dataArr);
     return editDataArray(await Promise.all(dataArr.map(a => {
         return getLocationByIP(a[0])
         .then(location => {

@@ -70,6 +70,7 @@ export const ReportProvider = ({ children, formId }) => {
     }
 
     useEffect(() => {
+        //localforage.clear();
         getSubmissionById(formId)
             .then(submission => {
                 const newAnswers = submission.map(s => s.answers);

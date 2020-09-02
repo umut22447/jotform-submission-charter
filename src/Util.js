@@ -111,7 +111,6 @@ export const drawPieChart = (dataArray, divRef) => {
 export const drawLineChart = (dataArray, divRef) => {
 
     var drawBackgroundColor = () => {
-        console.log(dataArray);
         var data = new global.google.visualization.arrayToDataTable(dataArray);
         var options = {
             curveType: 'function',
@@ -138,7 +137,6 @@ export const drawBarChart = (dataArr, divRef) => {
             width: 500,
             height: 400
         };
-        console.log(data);
         var materialChart = new global.google.charts.Bar(divRef.current);
         materialChart.draw(data, materialOptions);
     }
@@ -369,7 +367,6 @@ export const fillDataArrayForLocation = async (submissions, date) => {
     const filteredSubmissions = submissions.filter(s => new Date(s.created_at) >= dateCondition);
     let dataArr = filteredSubmissions.map(s => [s.ip, 1]);
     editDataArray(dataArr);
-    console.log(dataArr);
     return editDataArray(await Promise.all(dataArr.map(a => {
         return getLocationByIP(a[0])
         .then(location => {

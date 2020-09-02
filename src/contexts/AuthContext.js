@@ -21,12 +21,10 @@ export const AuthProvider = ({ children }) => {
         localforage.getItem("api").then(p => {
             if (p) {
                 api.key = p.key;
-                console.log("GIRIS YAPILMIS")
                 getUser(api.key).then(setUser);
             }
             else {
                 global.JF.login(() => {
-                    console.log("GİRİS YAPILIYOR")
                     api.key = global.JF.getAPIKey();
                     localforage.setItem("api", api);
                     getUser(api.key).then(setUser);

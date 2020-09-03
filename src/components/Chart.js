@@ -10,6 +10,7 @@ import { useReport } from '../contexts/ReportContext'
 
 export default function Chart(props) {
     const divRef = useRef();
+    const rootDivRef = useRef();
     const { deleteChartByIndex, changeChartTypeByField, changeDateByField, submissions, swapReportElements, onDragStart, reportTitleChange } = useReport();
     const { field, title, chartType, date } = props.report;
     const reportIndex = props.index;
@@ -57,8 +58,13 @@ export default function Chart(props) {
         event.preventDefault();
     }
 
-    const drag = () => {
+    const drag = (event) => {
+        event.target.style.opacity = "0.4";
         onDragStart(reportIndex);
+    }
+
+    const dragEnd = (event) => {
+        event.target.style.opacity = "1";
     }
 
     const drop = (event) => {
@@ -72,7 +78,7 @@ export default function Chart(props) {
     }
 
     return (
-        <div className='d-flex flex-column m-3' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop}>
+        <div ref={rootDivRef} className='d-flex flex-column m-3' draggable="true" onDragOver={allowDrop} onDragStart={drag} onDrop={drop} onDragEnd={dragEnd}>
             <div className="card min-h-500">
                 <div className="card-header bg-white">
                     <h5 className="card-header-title mr-auto mw-300" contentEditable="true" onBlur={handleHeaderChange}>

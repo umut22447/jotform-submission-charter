@@ -98,10 +98,10 @@ export default function Chart(props) {
                                     <button className={classNames("dropdown-item", { active: date === 'last3month' })} onClick={() => handleDateChange("last3month")}>Last 3 Months</button>
                                 </ul>
 
-                                <div className="dropdown-divider"></div>
+                                <div className={classNames("dropdown-divider", { "d-none": (field === "location-count") })}></div>
 
-                                <strong className="m-3">Chart Type</strong>
-                                <ul>
+                                <strong className={classNames("m-3", { "d-none": (field === "location-count") })}>Chart Type</strong>
+                                <ul className={classNames("dropdown", { "d-none": (field === "location-count") })}>
                                     <button className={classNames("dropdown-item", { active: chartType === 'Pie' })} onClick={() => handleChartTypeChange("Pie")}>Pie Chart</button>
                                     <button className={classNames("dropdown-item", { active: chartType === 'Line' })} onClick={() => handleChartTypeChange("Line")}>Line Chart</button>
                                     <button className={classNames("dropdown-item", { active: chartType === 'Bar' })} onClick={() => handleChartTypeChange("Bar")}> Bar Chart</button>

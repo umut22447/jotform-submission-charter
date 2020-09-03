@@ -40,7 +40,7 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/">
             <div className="sticky-top bg-white">
-              <h2 className='d-flex justify-content-center'>Select a Form and See the Charter</h2>
+              <h2 className='d-flex justify-content-center'>Select a Form and See the Charts</h2>
               <SearchBox />
             </div>
             <FormList />
